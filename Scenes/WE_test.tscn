@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba7o6ijvf8if6"]
+
+[ext_resource type="Texture2D" uid="uid://bwfi51lnq0kwf" path="res://Textures/image (3).png" id="1_akxf1"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_5x7gu"]
+panorama = ExtResource("1_akxf1")
+
+[sub_resource type="Sky" id="Sky_em7tt"]
+sky_material = SubResource("PanoramaSkyMaterial_5x7gu")
+
+[sub_resource type="Environment" id="Environment_rhxfg"]
+background_mode = 2
+sky = SubResource("Sky_em7tt")
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_rhxfg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.586556, 0.809909, 0, -0.809909, 0.586556, 0, 0, 0)

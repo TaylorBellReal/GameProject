@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://bv7mnkhxtusrk"]
+
+[ext_resource type="Script" path="res://Scenes/title.gd" id="1_fbq6r"]
+[ext_resource type="Texture2D" uid="uid://d00jag068jla5" path="res://Sprites/PetRelated/Pet/aileen_Natural_Habitat.png" id="2_mbw5f"]
+[ext_resource type="Texture2D" uid="uid://dgaj7rfdulxql" path="res://Sprites/PetRelated/Pet/bones.jpg" id="3_5r23b"]
+[ext_resource type="Texture2D" uid="uid://ct8juc3fbury" path="res://Sprites/PetRelated/Pet/Disturby_Natural_Habitat.png" id="4_jaaic"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8uvc"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_38hwh"]
+bg_color = Color(1, 0.356863, 0.0627451, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.313726, 0.313726, 0.313726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_etvt7"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.313726, 0.313726, 0.313726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fj58q"]
+bg_color = Color(0.564706, 0.65098, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.313726, 0.313726, 0.313726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fbq6r")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1160.0
+offset_bottom = 655.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_d8uvc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 422.0
+offset_right = 1088.0
+offset_bottom = 594.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Pet1" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_38hwh")
+text = "Furbeasel"
+
+[node name="Pet2" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_etvt7")
+text = "Bones"
+
+[node name="Pet3" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_fj58q")
+text = "I forgor name"
+
+[node name="AileenNaturalHabitat" type="Sprite2D" parent="."]
+position = Vector2(956, 199)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("2_mbw5f")
+
+[node name="Bones" type="Sprite2D" parent="."]
+position = Vector2(582, 239)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("3_5r23b")
+
+[node name="DisturbyNaturalHabitat" type="Sprite2D" parent="."]
+position = Vector2(231, 233)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("4_jaaic")
+
+[connection signal="pressed" from="Panel/HBoxContainer/Pet1" to="." method="_on_pet_1_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Pet2" to="." method="_on_pet_2_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Pet3" to="." method="_on_pet_3_pressed"]

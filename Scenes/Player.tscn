@@ -1,0 +1,152 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb6j07fe6ic6u"]
+
+[sub_resource type="GDScript" id="GDScript_a0wc1"]
+resource_name = "fps_controller"
+script/source = "extends CharacterBody3D
+
+const SPEED = 1.25
+const JUMP_VELOCITY = 2.25
+
+
+var _mouse_input : bool = false
+var _mouse_rotation : Vector3
+var _rotation_input : float
+var _tilt_input : float
+var _player_rotation : Vector3
+var _camera_rotation : Vector3
+
+var mouse_state = 'normal'
+
+@export var MOUSE_SENSITIVITY : float = .25
+@export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
+@export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
+@export var CAMERA_CONTROLLER : Camera3D
+@export var PET : Node3D
+@export var PEN : Node3D
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
+
+func _input(event):
+	if event.is_action_pressed(\"exit\"):
+		get_tree().quit()
+	if event.is_action_pressed(\"extra\"):
+		if PET.sleepy:
+			PET.sleepy = false
+			PET.sleep_cure = true
+		else:
+			PET.sleepy = true
+	if event.is_action_pressed(\"interact\"):
+		if mouse_state == 'normal':
+			mouse_state = 'interact'
+			Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+		else:
+			mouse_state = 'normal'
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _ready():
+	mouse_state = 'normal'
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+func _unhandled_input(event):
+	_mouse_input = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
+	if _mouse_input:
+		_rotation_input = -event.relative.x * MOUSE_SENSITIVITY
+		_tilt_input = -event.relative.y * MOUSE_SENSITIVITY
+		
+func _update_camera(delta):
+		#rotate camera using euler rotation
+		_mouse_rotation.x += _tilt_input * delta
+		_mouse_rotation.x = clamp(_mouse_rotation.x, TILT_LOWER_LIMIT,TILT_UPPER_LIMIT)
+		_mouse_rotation.y += _rotation_input * delta
+		
+		_player_rotation = Vector3(0, _mouse_rotation.y,0)
+		_camera_rotation = Vector3(_mouse_rotation.x,0,0)
+		
+		CAMERA_CONTROLLER.transform.basis = Basis.from_euler(_camera_rotation)
+		CAMERA_CONTROLLER.rotation.z = 0.0
+		
+		global_transform.basis = Basis.from_euler(_player_rotation)
+		
+		_rotation_input = 0.0
+		_tilt_input = 0.0
+
+func _physics_process(delta):
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	
+	if mouse_state == 'normal':
+		_update_camera(delta)
+	
+		# Handle Jump.
+		if Input.is_action_just_pressed(\"jump\") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
+
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var input_dir = Input.get_vector(\"move_left\", \"move_right\", \"move_forward\", \"move_backward\")
+		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		if direction:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.z = move_toward(velocity.z, 0, SPEED)
+			
+		move_and_slide()
+
+
+func _on_detection_body_entered(body):
+	#print(body)
+	if body == PET:
+		PET.player_in_sight = true
+	if body == PEN:
+		PEN.player_in_sight = true
+
+
+func _on_detection_body_exited(body):
+	#print(body)
+	if body == PET:
+		PET.player_in_sight = false
+	if body == PEN:
+		PEN.player_in_sight = false
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7hahq"]
+radius = 0.05
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q7hla"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3xx1n"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER")]
+script = SubResource("GDScript_a0wc1")
+CAMERA_CONTROLLER = NodePath("CameraController/Camera3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7hahq")
+
+[node name="PlaceholderMesh" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_q7hla")
+
+[node name="CameraController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.654585, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477823, 0)
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
+update_mode = 1
+
+[node name="Detection?" type="Area3D" parent="."]
+transform = Transform3D(7.00908, 0, 7.13252, 0, 10, 0, -7.13252, 0, 7.00908, 0, 0, -6.75317)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detection?"]
+shape = SubResource("BoxShape3D_3xx1n")
+
+[connection signal="body_entered" from="Detection?" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection?" to="." method="_on_detection_body_exited"]
