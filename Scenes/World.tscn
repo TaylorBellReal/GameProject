@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ci33aapjx1ea7"]
+[gd_scene load_steps=29 format=3 uid="uid://ci33aapjx1ea7"]
 
 [ext_resource type="PackedScene" uid="uid://ba7o6ijvf8if6" path="res://Scenes/WE_test.tscn" id="1_h3e0n"]
 [ext_resource type="PackedScene" uid="uid://bb6j07fe6ic6u" path="res://Scenes/Player.tscn" id="2_55glk"]
@@ -67,6 +67,24 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_cxhtv"]
 material = SubResource("StandardMaterial3D_3p7xq")
 size = Vector2(0.075, 0.075)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kc4oi"]
+bg_color = Color(0.647059, 0.529412, 0.85098, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_rq8rf"]
+font_size = 48
+font_color = Color(0.760784, 0.619608, 1, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.264666, -0.308505, 0.472062)
@@ -173,6 +191,54 @@ script = ExtResource("8_573me")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
+
+[node name="Overlay" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -575.0
+offset_top = -325.0
+offset_right = 575.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Overlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.5
+offset_top = -108.0
+offset_right = 191.5
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kc4oi")
+
+[node name="Label" type="Label" parent="CanvasLayer/Overlay/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.0
+offset_top = -100.0
+offset_right = 185.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_rq8rf")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
 
 [node name="HandIdleSprite" type="Sprite2D" parent="CanvasLayer" node_paths=PackedStringArray("PLAYER")]
 position = Vector2(900, 514)

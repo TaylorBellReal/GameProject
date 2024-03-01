@@ -6,6 +6,8 @@ extends CharacterBody3D
 
 var pet_picked:int = StartVars.pet_picked
 
+var object_name:String = StartVars.names[pet_picked]
+
 var Sounds = [preload("res://Sounds/Untitled video.mp3"),
 	preload("res://Sounds/wooden-door-slamming-close-79934.mp3")]
 

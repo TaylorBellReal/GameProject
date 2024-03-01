@@ -11,8 +11,12 @@ var MOUSE_SENSITIVITY = 1
 var temp :bool = false
 var tempx
 var tempy
+
+var default_texture = "res://Sprites/PetRelated/UI/Sprites/hand_idle_Sprite.png"
 #var test = PLAYER.position
 
+
+@onready var OVERLAY = $"../Overlay"
 var runner:int = 0 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,14 +33,23 @@ func _unhandled_input(event):
 	_click_fixer = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	#_mouse_clicked = event.is_action_pressed("click") and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN
 	
-	if event.is_action_pressed("click") and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN:
+	if event.is_action_pressed("mouse_wheel_down") and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN:
 		if !sightArray == []:
 			print(sightArray[runner])
+			OVERLAY.get_child(0).get_child(0).text = sightArray[runner].object_name
+			OVERLAY.visible = true
+			self.visible = false
 			runner += 1
 			if runner >= sightArray.size():
 				runner = 0 #comment
 				var hello
-	
+				
+	if event.is_action_pressed("click") and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN:
+		if !sightArray == [] and OVERLAY.visible == true:
+			sightArray[runner].get_grabbed()
+			OVERLAY.visible = false
+			self.visible = true
+			
 	if _mouse_input:
 		if !temp:
 			temp = true
