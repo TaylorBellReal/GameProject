@@ -3,6 +3,7 @@ extends Sprite2D
 @export var PLAYER : Node
 
 var sightArray = []
+var holding = []
 
 var _mouse_input : bool = false
 var _click_fixer : bool = false
@@ -18,6 +19,7 @@ var default_texture = "res://Sprites/PetRelated/UI/Sprites/hand_idle_Sprite.png"
 
 @onready var OVERLAY = $"../Overlay"
 var runner:int = 0 
+var temp_runner = runner
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,16 +41,23 @@ func _unhandled_input(event):
 			OVERLAY.get_child(0).get_child(0).text = sightArray[runner].object_name
 			OVERLAY.visible = true
 			self.visible = false
+			temp_runner = runner
 			runner += 1
 			if runner >= sightArray.size():
 				runner = 0 #comment
 				var hello
-				
-	if event.is_action_pressed("click") and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN:
-		if !sightArray == [] and OVERLAY.visible == true:
-			sightArray[runner].get_grabbed()
-			OVERLAY.visible = false
-			self.visible = true
+	
+	if event.is_action_pressed("mouse_wheel_up") and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN:
+		if !sightArray == []:
+			print(sightArray[runner])
+			OVERLAY.get_child(0).get_child(0).text = sightArray[runner].object_name
+			OVERLAY.visible = true
+			self.visible = false
+			temp_runner = runner
+			runner -= 1
+			if runner <= -1:
+				runner = sightArray.size()-1 #comment
+				var hello
 			
 	if _mouse_input:
 		if !temp:
@@ -78,6 +87,18 @@ func _unhandled_input(event):
 		else:
 			pass
 
+func _input(event):
+	if event.is_action_pressed("click"):
+		if OVERLAY.visible == true:
+			OVERLAY.visible = false
+			self.visible = true
+			holding.append(sightArray[temp_runner])
+			holding[0].get_grabbed()
+	
+	if event.is_action_pressed("r_click"):
+		if holding != []:
+			holding[0].drop(PLAYER.position)
+
 # Function to update the sprite's scale based on its Y value
 func update_scale():
 	# Get the current Y position of the sprite
@@ -93,7 +114,7 @@ func sight_update():
 	var temp = []
 	if PLAYER.PET.player_in_sight:
 		temp.append(PLAYER.PET)
-	if PLAYER.PEN.player_in_sight:
+	if PLAYER.PEN.player_in_sight and !PLAYER.PEN.uppies:
 		temp.append(PLAYER.PEN)
 		
 	return temp

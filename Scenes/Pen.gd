@@ -9,6 +9,12 @@ func get_grabbed() -> void:
 	get_parent().visible = false
 	uppies = true
 
+func drop(input) -> void:
+	get_parent().position = Vector3(input.x,get_parent().position.y,input.z)
+	get_parent().visible = true
+	print("dropped")
+	uppies = false
+
 func _ready():
 	pass # Replace with function body.
 
