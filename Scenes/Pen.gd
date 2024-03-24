@@ -2,7 +2,10 @@ extends StaticBody3D
 
 var player_in_sight:bool = false
 var uppies:bool = false
-var object_name:String = "Pet Pen"
+@export var object_name:String = "Pet Pen"
+@export var held_sprite:Texture = preload("res://Sprites/PetRelated/UI/Sprites/pet_HouseB2_Sprite.png")
+@export var default_scale = Vector2(1,1)
+@export var default_position = Vector2(900,514)
 # Called when the node enters the scene tree for the first time.
 
 func get_grabbed() -> void:
@@ -12,7 +15,7 @@ func get_grabbed() -> void:
 func drop(input) -> void:
 	get_parent().position = Vector3(input.x,get_parent().position.y,input.z)
 	get_parent().visible = true
-	print("dropped")
+	#print("dropped")
 	uppies = false
 
 func _ready():

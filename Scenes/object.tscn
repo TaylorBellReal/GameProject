@@ -1,0 +1,34 @@
+[gd_scene load_steps=9 format=3 uid="uid://b306pvdne2j6t"]
+
+[ext_resource type="Texture2D" uid="uid://7frmdoajov14" path="res://Sprites/pet_HouseB2_Sprite.png" id="1_7faqy"]
+[ext_resource type="Script" path="res://Scenes/Icon.gd" id="2_5ih6l"]
+[ext_resource type="Texture2D" uid="uid://ct07ne0d3v8fe" path="res://Sprites/PetRelated/UI/Sprites/pet_HouseB2_Sprite.png" id="3_1r36p"]
+[ext_resource type="Script" path="res://Scenes/Pen.gd" id="3_vherr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_njjc2"]
+transparency = 1
+albedo_texture = ExtResource("1_7faqy")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_lumlf"]
+material = SubResource("StandardMaterial3D_njjc2")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n85ul"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7gqy6"]
+size = Vector3(3.13264, 1.07242, 0.0528433)
+
+[node name="Object" type="MeshInstance3D"]
+transform = Transform3D(-0.999957, 0, -0.00935473, 0, 1, 0, 0.00935473, 0, -0.999957, -1.4451, 0.239523, 1.09469)
+mesh = SubResource("QuadMesh_lumlf")
+skeleton = NodePath("")
+script = ExtResource("2_5ih6l")
+object_texture = ExtResource("3_1r36p")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_n85ul")
+script = ExtResource("3_vherr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, -7.54539e-05, 0, 0.00333285)
+shape = SubResource("BoxShape3D_7gqy6")

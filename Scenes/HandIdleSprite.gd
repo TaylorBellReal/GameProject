@@ -12,8 +12,9 @@ var MOUSE_SENSITIVITY = 1
 var temp :bool = false
 var tempx
 var tempy
-
-var default_texture = "res://Sprites/PetRelated/UI/Sprites/hand_idle_Sprite.png"
+var default_scale = Vector2(1,1)
+var default_position = Vector2(900,514)
+var default_texture = preload("res://Sprites/PetRelated/UI/Sprites/hand_idle_Sprite.png")
 #var test = PLAYER.position
 
 
@@ -57,25 +58,17 @@ func _unhandled_input(event):
 			runner -= 1
 			if runner <= -1:
 				runner = sightArray.size()-1 #comment
-				var hello
 			
 	if _mouse_input:
 		if !temp:
 			temp = true
 			tempx = position.x
 			tempy = position.y
-			#var tempfix = Vector2(800,400)
-			#Input.warp_mouse(tempfix)
 			position = get_viewport().get_mouse_position()
 			
 			sightArray = sight_update()
 			print(sightArray)
 			runner = 0
-			#print(tempx + tempy)
-		#position.x += event.relative.x #* MOUSE_SENSITIVITY
-		#position.y += event.relative.y #* MOUSE_SENSITIVITY
-		#position.x += get_viewport().get_mouse_position().x
-		#position.y += get_viewport().get_mouse_position().y
 		position = get_viewport().get_mouse_position()
 		update_scale()
 	elif _click_fixer:
@@ -90,14 +83,26 @@ func _unhandled_input(event):
 func _input(event):
 	if event.is_action_pressed("click"):
 		if OVERLAY.visible == true:
+			PLAYER.mouse_state = "holding"
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			
 			OVERLAY.visible = false
 			self.visible = true
 			holding.append(sightArray[temp_runner])
 			holding[0].get_grabbed()
-	
+			
+			self.texture = holding[0].held_sprite
+			self.position = holding[0].default_position
+			self.scale = holding[0].default_scale
+			temp = false
+			
 	if event.is_action_pressed("r_click"):
 		if holding != []:
+			PLAYER.mouse_state = "normal"
 			holding[0].drop(PLAYER.position)
+			holding = []
+			self.texture = default_texture
+			temp = true
 
 # Function to update the sprite's scale based on its Y value
 func update_scale():

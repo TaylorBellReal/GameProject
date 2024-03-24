@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://g7i1g8wy5o8b"]
+
+[ext_resource type="PackedScene" uid="uid://b306pvdne2j6t" path="res://Scenes/object.tscn" id="1_csoly"]
+
+[node name="PetHouse" instance=ExtResource("1_csoly")]
+
+[node name="StaticBody3D" parent="." index="0"]
+default_scale = Vector2(2.5, 2.5)
+default_position = Vector2(900, 850)

@@ -22,7 +22,8 @@ var mouse_state = 'normal'
 @export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
 @export var CAMERA_CONTROLLER : Camera3D
 @export var PET : Node3D
-@export var PEN : Node3D
+@onready var PEN : Node3D = $\"../PetHouse\".get_child(0)
+@onready var BAG : Node3D = $\"../Foodbag\".get_child(0)
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
@@ -40,9 +41,11 @@ func _input(event):
 		if mouse_state == 'normal':
 			mouse_state = 'interact'
 			Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
-		else:
+		elif mouse_state == 'interact':
 			mouse_state = 'normal'
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		elif mouse_state == 'holding':
+			pass
 
 func _ready():
 	mouse_state = 'normal'
@@ -76,7 +79,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-	if mouse_state == 'normal':
+	if mouse_state == 'normal' or mouse_state == 'holding':
 		_update_camera(delta)
 	
 		# Handle Jump.
@@ -103,6 +106,8 @@ func _on_detection_body_entered(body):
 		PET.player_in_sight = true
 	if body == PEN:
 		PEN.player_in_sight = true
+	if body == BAG:
+		BAG.player_in_sight = true
 
 
 func _on_detection_body_exited(body):
@@ -111,6 +116,8 @@ func _on_detection_body_exited(body):
 		PET.player_in_sight = false
 	if body == PEN:
 		PEN.player_in_sight = false
+	if body == BAG:
+		BAG.player_in_sight = false
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7hahq"]

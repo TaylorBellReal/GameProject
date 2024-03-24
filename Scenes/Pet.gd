@@ -6,8 +6,6 @@ extends CharacterBody3D
 
 var pet_picked:int = StartVars.pet_picked
 
-var object_name:String = StartVars.names[pet_picked]
-
 var Sounds = [preload("res://Sounds/Untitled video.mp3"),
 	preload("res://Sounds/wooden-door-slamming-close-79934.mp3")]
 
@@ -21,6 +19,15 @@ var Indicators = [preload("res://Sprites/PetRelated/UI/hungy.png"),
 
 var Pens = [preload("res://Sprites/pet_HouseB2_Sprite.png"),
 	preload("res://Sprites/pet_HouseB_Sprite.png")]
+
+################################################
+#Vars for picking up the pet
+var object_name:String = StartVars.names[pet_picked]
+var held_sprite:Texture = Pets[pet_picked]
+var default_scale = Vector2(2,2)
+var default_position = Vector2(900,800)
+var uppies = false
+################################################
 
 @onready var MESH : Node = self.find_child("Mesh")
 
@@ -49,6 +56,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
 	MESH.set_albedo_texture(Pets[pet_picked],0)
+	ICON.visible = false
 
 
 func check_if_facing(target, threshold):
@@ -81,7 +89,7 @@ func sight_update():
 func movement():
 	#Furbeasel ===================================================================
 	if pet_picked == 0:
-		if !sleepy:
+		if !sleepy and !uppies:
 			s = Sounds[0]
 			
 			var x = (($"../Player".position.x - position.x) * 2/3)
@@ -179,3 +187,16 @@ func _input(event):
 	if event.is_action_pressed("extra"):
 		print(sleepy)
 
+
+####################################################
+#Functions for picking up the pet
+###############################################
+func get_grabbed() -> void:
+	self.visible = false
+	uppies = true
+
+func drop(input) -> void:
+	self.position = Vector3(input.x,get_parent().position.y,input.z)
+	self.visible = true
+	#print("dropped")
+	uppies = false

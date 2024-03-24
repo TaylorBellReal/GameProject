@@ -1,13 +1,13 @@
-[gd_scene load_steps=29 format=3 uid="uid://ci33aapjx1ea7"]
+[gd_scene load_steps=27 format=3 uid="uid://ci33aapjx1ea7"]
 
 [ext_resource type="PackedScene" uid="uid://ba7o6ijvf8if6" path="res://Scenes/WE_test.tscn" id="1_h3e0n"]
 [ext_resource type="PackedScene" uid="uid://bb6j07fe6ic6u" path="res://Scenes/Player.tscn" id="2_55glk"]
 [ext_resource type="Texture2D" uid="uid://0lwrae2h6nk4" path="res://Textures/grass2.jpg" id="2_dhwa8"]
 [ext_resource type="Script" path="res://Scenes/Pet.gd" id="3_2ymyl"]
 [ext_resource type="Texture2D" uid="uid://cb18ssydjnci" path="res://Textures/rough_wood_5_by_sharandra_d5agsrz-375w-2x.jpg" id="3_4gfpo"]
-[ext_resource type="Texture2D" uid="uid://7frmdoajov14" path="res://Sprites/pet_HouseB2_Sprite.png" id="4_80d1o"]
+[ext_resource type="PackedScene" uid="uid://g7i1g8wy5o8b" path="res://Scenes/pet_house.tscn" id="4_of2tq"]
+[ext_resource type="PackedScene" uid="uid://boeqb6hu8dhmg" path="res://Scenes/foodbag.tscn" id="5_3mliv"]
 [ext_resource type="Texture2D" uid="uid://wi4sw02ib1qx" path="res://Sprites/PetRelated/Pet/Disturby.png" id="6_c7cmv"]
-[ext_resource type="Script" path="res://Scenes/Pen.gd" id="6_o564q"]
 [ext_resource type="Texture2D" uid="uid://2u3qlpp5trc2" path="res://Sprites/PetRelated/UI/hungy.png" id="7_m1uup"]
 [ext_resource type="Script" path="res://Scenes/Icon.gd" id="8_573me"]
 [ext_resource type="Texture2D" uid="uid://cw8rmtvke33kd" path="res://Sprites/hand_idle_Sprite.png" id="10_0l1ip"]
@@ -35,14 +35,6 @@ size = Vector2(3.135, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e6cyj"]
 size = Vector3(3.13264, 1.07242, 0.0528433)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_njjc2"]
-transparency = 1
-albedo_texture = ExtResource("4_80d1o")
-billboard_mode = 2
-
-[sub_resource type="QuadMesh" id="QuadMesh_xbiwh"]
-material = SubResource("StandardMaterial3D_njjc2")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6sj4n"]
 transparency = 1
@@ -150,24 +142,16 @@ physics_material_override = SubResource("PhysicsMaterial_ywrhj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.54539e-05, 0, 0.00333285)
 shape = SubResource("BoxShape3D_e6cyj")
 
-[node name="PetHouse" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.999957, 0, -0.00935473, 0, 1, 0, 0.00935473, 0, -0.999957, -1.4451, 0.239523, 1.09469)
-mesh = SubResource("QuadMesh_xbiwh")
-skeleton = NodePath("")
-script = ExtResource("8_573me")
+[node name="PetHouse" parent="." instance=ExtResource("4_of2tq")]
+object_scale = Vector2(2, 2)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="PetHouse"]
-physics_material_override = SubResource("PhysicsMaterial_ywrhj")
-script = ExtResource("6_o564q")
+[node name="Foodbag" parent="." instance=ExtResource("5_3mliv")]
+transform = Transform3D(-0.999957, 0, -0.00935461, 0, 1, 0, 0.00935461, 0, -0.999957, 0.885077, 0.340312, 1.09469)
+object_scale = Vector2(0.5, 0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PetHouse/StaticBody3D"]
-transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, -7.54539e-05, 0, 0.00333285)
-shape = SubResource("BoxShape3D_e6cyj")
-
-[node name="Player" parent="." node_paths=PackedStringArray("PET", "PEN") instance=ExtResource("2_55glk")]
+[node name="Player" parent="." node_paths=PackedStringArray("PET") instance=ExtResource("2_55glk")]
 transform = Transform3D(0.125, 0, 0, 0, 0.125, 0, 0, 0, 0.125, 0.0522606, 0.366756, -0.0311457)
 PET = NodePath("../Pet")
-PEN = NodePath("../PetHouse/StaticBody3D")
 
 [node name="Pet" type="CharacterBody3D" parent="." node_paths=PackedStringArray("PLAYER", "PEN")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.213498, 0.25888)
@@ -179,6 +163,7 @@ PEN = NodePath("../PetHouse")
 cast_shadow = 0
 mesh = SubResource("QuadMesh_hox0p")
 script = ExtResource("8_573me")
+object_scale = Vector2(0.25, 0.25)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pet"]
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0, 0)
@@ -188,6 +173,7 @@ shape = SubResource("SphereShape3D_n8xa2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0159579, 0.103826, -0.0225889)
 mesh = SubResource("QuadMesh_cxhtv")
 script = ExtResource("8_573me")
+object_scale = Vector2(0.075, 0.075)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
