@@ -100,6 +100,8 @@ func _input(event):
 		if holding != []:
 			PLAYER.mouse_state = "normal"
 			holding[0].drop(PLAYER.position)
+			#holding[0].constant_linear_velocity = Vector3(10,-10,10)
+			#print(holding[0].constant_linear_velocity)
 			holding = []
 			self.texture = default_texture
 			temp = true

@@ -6,15 +6,16 @@ var uppies:bool = false
 @export var held_sprite:Texture = preload("res://Sprites/PetRelated/UI/Sprites/pet_HouseB2_Sprite.png")
 @export var default_scale = Vector2(1,1)
 @export var default_position = Vector2(900,514)
+@onready var PARENT = self.get_parent()
 # Called when the node enters the scene tree for the first time.
 
 func get_grabbed() -> void:
-	get_parent().visible = false
+	PARENT.visible = false
 	uppies = true
 
 func drop(input) -> void:
-	get_parent().position = Vector3(input.x,get_parent().position.y,input.z)
-	get_parent().visible = true
+	PARENT.position = Vector3(input.x,get_parent().position.y,input.z)
+	PARENT.visible = true
 	#print("dropped")
 	uppies = false
 
