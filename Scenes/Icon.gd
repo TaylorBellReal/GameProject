@@ -1,9 +1,9 @@
 extends MeshInstance3D
-@export var object_texture: Texture
-@export var object_scale: Vector2 = Vector2(1,1)
-func _ready():
-	set_albedo_texture(object_texture,0)
-	self.mesh.size = object_scale
+#@export var object_scale: Vector2 = Vector2(1,1)
+#@export var object_texture: Texture
+#func _ready():
+#	set_albedo_texture(object_texture,0)
+#	self.mesh.size = object_scale
 
 
 # Function to set a new albedo texture with specific settings

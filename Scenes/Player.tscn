@@ -23,7 +23,7 @@ var mouse_state = 'normal'
 @export var CAMERA_CONTROLLER : Camera3D
 @export var PET : Node3D
 @onready var PEN : Node3D = $\"../PetHouse\".get_child(0)
-@onready var BAG : Node3D = $\"../Foodbag\".get_child(0)
+@onready var BAG : Node3D = $\"../Foodbag/StaticBody3D\"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting(\"physics/3d/default_gravity\")

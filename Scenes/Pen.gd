@@ -2,7 +2,7 @@ extends StaticBody3D
 
 var player_in_sight:bool = false
 var uppies:bool = false
-@export var object_name:String = "Pet Pen"
+@export var object_name:String = "Pet House"
 @export var held_sprite:Texture = preload("res://Sprites/PetRelated/UI/Sprites/pet_HouseB2_Sprite.png")
 @export var default_scale = Vector2(1,1)
 @export var default_position = Vector2(900,514)

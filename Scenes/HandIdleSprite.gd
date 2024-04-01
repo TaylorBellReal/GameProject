@@ -117,9 +117,11 @@ func update_scale():
 
 func sight_update():
 	var temp = []
-	if PLAYER.PET.player_in_sight:
+	if PLAYER.PET.player_in_sight and !PLAYER.BAG.uppies:
 		temp.append(PLAYER.PET)
 	if PLAYER.PEN.player_in_sight and !PLAYER.PEN.uppies:
 		temp.append(PLAYER.PEN)
+	if PLAYER.BAG.player_in_sight and !PLAYER.BAG.uppies:
+		temp.append(PLAYER.BAG)
 		
 	return temp

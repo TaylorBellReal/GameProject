@@ -1,13 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://ci33aapjx1ea7"]
+[gd_scene load_steps=33 format=3 uid="uid://ci33aapjx1ea7"]
 
 [ext_resource type="PackedScene" uid="uid://ba7o6ijvf8if6" path="res://Scenes/WE_test.tscn" id="1_h3e0n"]
 [ext_resource type="PackedScene" uid="uid://bb6j07fe6ic6u" path="res://Scenes/Player.tscn" id="2_55glk"]
 [ext_resource type="Texture2D" uid="uid://0lwrae2h6nk4" path="res://Textures/grass2.jpg" id="2_dhwa8"]
 [ext_resource type="Script" path="res://Scenes/Pet.gd" id="3_2ymyl"]
 [ext_resource type="Texture2D" uid="uid://cb18ssydjnci" path="res://Textures/rough_wood_5_by_sharandra_d5agsrz-375w-2x.jpg" id="3_4gfpo"]
+[ext_resource type="Texture2D" uid="uid://54nqnga828v4" path="res://Sprites/foodBag_Shelf_Sprite.png" id="4_gd3p5"]
 [ext_resource type="PackedScene" uid="uid://g7i1g8wy5o8b" path="res://Scenes/pet_house.tscn" id="4_of2tq"]
-[ext_resource type="PackedScene" uid="uid://boeqb6hu8dhmg" path="res://Scenes/foodbag.tscn" id="5_3mliv"]
+[ext_resource type="Texture2D" uid="uid://b55uro4pvimea" path="res://Sprites/foodBag_Held_Sprite.png" id="6_2gcgv"]
 [ext_resource type="Texture2D" uid="uid://wi4sw02ib1qx" path="res://Sprites/PetRelated/Pet/Disturby.png" id="6_c7cmv"]
+[ext_resource type="Script" path="res://Scenes/Pen.gd" id="6_o564q"]
 [ext_resource type="Texture2D" uid="uid://2u3qlpp5trc2" path="res://Sprites/PetRelated/UI/hungy.png" id="7_m1uup"]
 [ext_resource type="Script" path="res://Scenes/Icon.gd" id="8_573me"]
 [ext_resource type="Texture2D" uid="uid://cw8rmtvke33kd" path="res://Sprites/hand_idle_Sprite.png" id="10_0l1ip"]
@@ -34,6 +36,20 @@ material = SubResource("StandardMaterial3D_qugjp")
 size = Vector2(3.135, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e6cyj"]
+size = Vector3(3.13264, 1.07242, 0.0528433)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idur8"]
+transparency = 1
+albedo_texture = ExtResource("4_gd3p5")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_fbywy"]
+material = SubResource("StandardMaterial3D_idur8")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ybqpo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_msu42"]
 size = Vector3(3.13264, 1.07242, 0.0528433)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6sj4n"]
@@ -81,73 +97,87 @@ outline_color = Color(0, 0, 0, 1)
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.264666, -0.308505, 0.472062)
 
-[node name="WorldEnvironment" parent="." instance=ExtResource("1_h3e0n")]
+[node name="WorldLayout" type="Node3D" parent="."]
 
-[node name="Floor" type="MeshInstance3D" parent="."]
+[node name="WorldEnvironment" parent="WorldLayout" instance=ExtResource("1_h3e0n")]
+
+[node name="Floor" type="MeshInstance3D" parent="WorldLayout"]
 mesh = SubResource("BoxMesh_y4g71")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_vvl8a")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldLayout/Floor"]
 physics_material_override = SubResource("PhysicsMaterial_ywrhj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldLayout/Floor/StaticBody3D"]
 shape = SubResource("BoxShape3D_kjsgo")
 
-[node name="Wall0" type="MeshInstance3D" parent="."]
+[node name="Wall0" type="MeshInstance3D" parent="WorldLayout"]
 transform = Transform3D(0.999744, 0, 0.022635, 0, 1, 0, -0.022635, 0, 0.999744, 0, 0.558512, -1.33671)
 mesh = SubResource("QuadMesh_n4ym0")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Wall0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldLayout/Wall0"]
 physics_material_override = SubResource("PhysicsMaterial_ywrhj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall0/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldLayout/Wall0/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.54539e-05, 0, 0.00333285)
 shape = SubResource("BoxShape3D_e6cyj")
 
-[node name="Wall1" type="MeshInstance3D" parent="."]
+[node name="Wall1" type="MeshInstance3D" parent="WorldLayout"]
 transform = Transform3D(-0.0085346, 0, -0.999964, 0, 1, 0, 0.999964, 0, -0.0085346, 1.53667, 0.558512, -0.0138798)
 mesh = SubResource("QuadMesh_n4ym0")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Wall1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldLayout/Wall1"]
 physics_material_override = SubResource("PhysicsMaterial_ywrhj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall1/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldLayout/Wall1/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.54539e-05, 0, 0.00333285)
 shape = SubResource("BoxShape3D_e6cyj")
 
-[node name="Wall2" type="MeshInstance3D" parent="."]
+[node name="Wall2" type="MeshInstance3D" parent="WorldLayout"]
 transform = Transform3D(-0.999874, 0, 0.0158993, 0, 1, 0, -0.0158993, 0, -0.999874, -0.00867414, 0.558512, 1.35254)
 mesh = SubResource("QuadMesh_n4ym0")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Wall2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldLayout/Wall2"]
 physics_material_override = SubResource("PhysicsMaterial_ywrhj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldLayout/Wall2/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.54539e-05, 0, 0.00333285)
 shape = SubResource("BoxShape3D_e6cyj")
 
-[node name="Wall3" type="MeshInstance3D" parent="."]
+[node name="Wall3" type="MeshInstance3D" parent="WorldLayout"]
 transform = Transform3D(-0.00467741, 0, 0.999989, 0, 1, 0, -0.999989, 0, -0.00467741, -1.54424, 0.558512, -0.0372783)
 mesh = SubResource("QuadMesh_n4ym0")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Wall3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldLayout/Wall3"]
 physics_material_override = SubResource("PhysicsMaterial_ywrhj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldLayout/Wall3/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.54539e-05, 0, 0.00333285)
 shape = SubResource("BoxShape3D_e6cyj")
 
-[node name="PetHouse" parent="." instance=ExtResource("4_of2tq")]
-object_scale = Vector2(2, 2)
+[node name="Foodbag" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.810155, 0.24103, 1.04169)
+mesh = SubResource("QuadMesh_fbywy")
+script = ExtResource("8_573me")
 
-[node name="Foodbag" parent="." instance=ExtResource("5_3mliv")]
-transform = Transform3D(-0.999957, 0, -0.00935461, 0, 1, 0, 0.00935461, 0, -0.999957, 0.885077, 0.340312, 1.09469)
-object_scale = Vector2(0.5, 0.5)
+[node name="StaticBody3D" type="StaticBody3D" parent="Foodbag"]
+transform = Transform3D(-0.999956, 0, -0.00935461, 0, 1, 0, 0.00935461, 0, -0.999956, 0.0112342, -0.0204546, -0.0514336)
+physics_material_override = SubResource("PhysicsMaterial_ybqpo")
+script = ExtResource("6_o564q")
+object_name = "Pet Food"
+held_sprite = ExtResource("6_2gcgv")
+default_position = Vector2(600, 200)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Foodbag/StaticBody3D"]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, -7.54539e-05, 0, 0.00333285)
+shape = SubResource("BoxShape3D_msu42")
+
+[node name="PetHouse" parent="." instance=ExtResource("4_of2tq")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("PET") instance=ExtResource("2_55glk")]
 transform = Transform3D(0.125, 0, 0, 0, 0.125, 0, 0, 0, 0.125, 0.0522606, 0.366756, -0.0311457)
@@ -163,7 +193,6 @@ PEN = NodePath("../PetHouse")
 cast_shadow = 0
 mesh = SubResource("QuadMesh_hox0p")
 script = ExtResource("8_573me")
-object_scale = Vector2(0.25, 0.25)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pet"]
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0, 0)
@@ -173,7 +202,6 @@ shape = SubResource("SphereShape3D_n8xa2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0159579, 0.103826, -0.0225889)
 mesh = SubResource("QuadMesh_cxhtv")
 script = ExtResource("8_573me")
-object_scale = Vector2(0.075, 0.075)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
