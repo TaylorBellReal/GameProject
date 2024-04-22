@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ci33aapjx1ea7"]
+[gd_scene load_steps=40 format=3 uid="uid://ci33aapjx1ea7"]
 
 [ext_resource type="PackedScene" uid="uid://ba7o6ijvf8if6" path="res://Scenes/WE_test.tscn" id="1_h3e0n"]
 [ext_resource type="PackedScene" uid="uid://bb6j07fe6ic6u" path="res://Scenes/Player.tscn" id="2_55glk"]
@@ -7,10 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://cb18ssydjnci" path="res://Textures/rough_wood_5_by_sharandra_d5agsrz-375w-2x.jpg" id="3_4gfpo"]
 [ext_resource type="Texture2D" uid="uid://54nqnga828v4" path="res://Sprites/foodBag_Shelf_Sprite.png" id="4_gd3p5"]
 [ext_resource type="PackedScene" uid="uid://g7i1g8wy5o8b" path="res://Scenes/pet_house.tscn" id="4_of2tq"]
+[ext_resource type="Texture2D" uid="uid://o6d4sqcovnr6" path="res://Sprites/PetRelated/UI/Sprites/toy3_Sprite.png" id="4_pdsbq"]
 [ext_resource type="Texture2D" uid="uid://b55uro4pvimea" path="res://Sprites/foodBag_Held_Sprite.png" id="6_2gcgv"]
 [ext_resource type="Texture2D" uid="uid://wi4sw02ib1qx" path="res://Sprites/PetRelated/Pet/Disturby.png" id="6_c7cmv"]
 [ext_resource type="Script" path="res://Scenes/Pen.gd" id="6_o564q"]
+[ext_resource type="Script" path="res://Scenes/RigidBody3D.gd" id="6_oyfw6"]
 [ext_resource type="Texture2D" uid="uid://2u3qlpp5trc2" path="res://Sprites/PetRelated/UI/hungy.png" id="7_m1uup"]
+[ext_resource type="Texture2D" uid="uid://o543ynajb5fq" path="res://Sprites/toy3_Sprite.png" id="7_m8xl8"]
 [ext_resource type="Script" path="res://Scenes/Icon.gd" id="8_573me"]
 [ext_resource type="Texture2D" uid="uid://cw8rmtvke33kd" path="res://Sprites/hand_idle_Sprite.png" id="10_0l1ip"]
 [ext_resource type="Script" path="res://Scenes/HandIdleSprite.gd" id="11_cthqt"]
@@ -38,6 +41,21 @@ size = Vector2(3.135, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e6cyj"]
 size = Vector3(3.13264, 1.07242, 0.0528433)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5aqek"]
+bounce = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_msu42"]
+size = Vector3(3.13264, 1.07242, 0.0528433)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wl1mp"]
+transparency = 1
+albedo_texture = ExtResource("4_pdsbq")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_jhfxu"]
+material = SubResource("StandardMaterial3D_wl1mp")
+size = Vector2(0.6, 0.6)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idur8"]
 transparency = 1
 albedo_texture = ExtResource("4_gd3p5")
@@ -48,9 +66,6 @@ material = SubResource("StandardMaterial3D_idur8")
 size = Vector2(0.5, 0.5)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ybqpo"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_msu42"]
-size = Vector3(3.13264, 1.07242, 0.0528433)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6sj4n"]
 transparency = 1
@@ -93,6 +108,17 @@ font_size = 48
 font_color = Color(0.760784, 0.619608, 1, 1)
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5by28"]
+bg_color = Color(0.992157, 0.27451, 0.623529, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.264666, -0.308505, 0.472062)
@@ -159,6 +185,26 @@ physics_material_override = SubResource("PhysicsMaterial_ywrhj")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldLayout/Wall3/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.54539e-05, 0, 0.00333285)
 shape = SubResource("BoxShape3D_e6cyj")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." node_paths=PackedStringArray("PLAYER")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.796642, 0.139432, -0.701499)
+physics_material_override = SubResource("PhysicsMaterial_5aqek")
+script = ExtResource("6_oyfw6")
+object_name = "Frisbee"
+held_sprite = ExtResource("7_m8xl8")
+default_scale = Vector2(2, 2)
+default_position = Vector2(700, 650)
+PLAYER = NodePath("../Player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, -7.54539e-05, 0, 0.00333285)
+shape = SubResource("BoxShape3D_msu42")
+
+[node name="Frisbee" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+transform = Transform3D(333.333, 0, 0, 0, 333.333, 0, 0, 0, 333.333, 0.0251465, 0, -1.11095)
+mesh = SubResource("QuadMesh_jhfxu")
+skeleton = NodePath("../../../Foodbag")
+script = ExtResource("8_573me")
 
 [node name="Foodbag" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.810155, 0.24103, 1.04169)
@@ -261,5 +307,31 @@ offset = Vector2(-40, -40)
 script = ExtResource("11_cthqt")
 PLAYER = NodePath("../../Player")
 
+[node name="Overlay2" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -575.0
+offset_top = -325.0
+offset_right = 575.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Overlay2"]
+layout_mode = 0
+offset_left = 394.0
+offset_top = 244.0
+offset_right = 729.0
+offset_bottom = 411.0
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_5by28")
+text = "Return to Title?"
+
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 pitch_scale = 2.33
+
+[connection signal="pressed" from="CanvasLayer/Overlay2/Button" to="CanvasLayer/HandIdleSprite" method="_on_button_pressed"]

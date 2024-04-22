@@ -24,13 +24,23 @@ var mouse_state = 'normal'
 @export var PET : Node3D
 @onready var PEN : Node3D = $\"../PetHouse\".get_child(0)
 @onready var BAG : Node3D = $\"../Foodbag/StaticBody3D\"
+@onready var FRIS: Node3D = $\"../RigidBody3D\"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
 
 func _input(event):
 	if event.is_action_pressed(\"exit\"):
-		get_tree().quit()
+		if mouse_state == 'normal':
+			mouse_state = 'pause'
+			$\"../CanvasLayer/HandIdleSprite\".visible = false
+			$\"../CanvasLayer/Overlay2\".visible = true
+			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+		elif mouse_state == 'pause':
+			mouse_state = 'normal'
+			$\"../CanvasLayer/HandIdleSprite\".visible = true
+			$\"../CanvasLayer/Overlay2\".visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if event.is_action_pressed(\"extra\"):
 		if PET.sleepy:
 			PET.sleepy = false
@@ -108,6 +118,8 @@ func _on_detection_body_entered(body):
 		PEN.player_in_sight = true
 	if body == BAG:
 		BAG.player_in_sight = true
+	if body == FRIS:
+		FRIS.player_in_sight = true
 
 
 func _on_detection_body_exited(body):
@@ -118,6 +130,8 @@ func _on_detection_body_exited(body):
 		PEN.player_in_sight = false
 	if body == BAG:
 		BAG.player_in_sight = false
+	if body == FRIS:
+		FRIS.player_in_sight = false
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7hahq"]

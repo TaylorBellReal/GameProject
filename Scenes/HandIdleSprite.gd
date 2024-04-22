@@ -102,6 +102,8 @@ func _input(event):
 			holding[0].drop(PLAYER.position)
 			#holding[0].constant_linear_velocity = Vector3(10,-10,10)
 			#print(holding[0].constant_linear_velocity)
+			################################################################# to_local() - handles transfomation math
+			################################################################# Add frisbee with physics body3d
 			holding = []
 			self.texture = default_texture
 			temp = true
@@ -125,5 +127,12 @@ func sight_update():
 		temp.append(PLAYER.PEN)
 	if PLAYER.BAG.player_in_sight and !PLAYER.BAG.uppies:
 		temp.append(PLAYER.BAG)
+	if PLAYER.FRIS.player_in_sight and !PLAYER.FRIS.uppies:
+		temp.append(PLAYER.FRIS)
 		
 	return temp
+
+
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/title.tscn")
+	pass # Replace with function body.

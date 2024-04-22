@@ -14,7 +14,7 @@ func get_grabbed() -> void:
 	uppies = true
 
 func drop(input) -> void:
-	PARENT.position = Vector3(input.x,get_parent().position.y,input.z)
+	PARENT.position = Vector3(input.x,PARENT.position.y,input.z)
 	PARENT.visible = true
 	#print("dropped")
 	uppies = false
