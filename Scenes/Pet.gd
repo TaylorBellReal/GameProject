@@ -112,8 +112,9 @@ func movement():
 		pass
 	#Alien ===========================================================================
 	elif pet_picked == 2:
-		position.x = (($"../Player".position.x - position.x) * 2/3) + position.x
-		position.z = (($"../Player".position.z - position.z) * 2/3) + position.z
+		if !uppies:
+			position.x = (($"../Player".position.x - position.x) * 2/3) + position.x
+			position.z = (($"../Player".position.z - position.z) * 2/3) + position.z
 	
 func state():
 	#Disturby ======================================================================
@@ -144,6 +145,8 @@ func state():
 				sleep_cure = false
 	#Bones ========================================================================================
 	elif pet_picked == 1:
+		
+		var undo = '''
 		if sleepy:
 			if !state_switch:
 				#print("I ran!")
@@ -167,7 +170,8 @@ func state():
 				self.visible = true
 				PEN.set_albedo_texture(Pens[0],0)
 				ICON.visible = false
-				sleep_cure = false
+				sleep_cure = false'''
+		pass #gonna make bones actually do nothing
 	# Alein ===============================================================================================================
 	elif pet_picked == 2:
 		if sleepy:
@@ -198,7 +202,14 @@ func get_grabbed() -> void:
 	uppies = true
 
 func drop(input) -> void:
-	self.position = Vector3(input.x,get_parent().position.y,input.z)
+	uppies = false
+	self.position = Vector3(input.x,get_parent().position.y+.5,input.z)
 	self.visible = true
 	#print("dropped")
-	uppies = false
+
+####################################################
+#Functions for timers and pet states
+###############################################
+
+func _on_action_timer_timeout():
+	pass # Replace with function body.

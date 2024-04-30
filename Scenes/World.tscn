@@ -80,11 +80,8 @@ size = Vector2(0.25, 0.25)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3p7xq"]
 transparency = 1
+shading_mode = 0
 albedo_texture = ExtResource("7_m1uup")
-rim_tint = 1.0
-clearcoat_roughness = 0.0
-backlight_enabled = true
-backlight = Color(1, 0.4, 0.4, 1)
 billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_cxhtv"]
@@ -231,6 +228,8 @@ PET = NodePath("../Pet")
 
 [node name="Pet" type="CharacterBody3D" parent="." node_paths=PackedStringArray("PLAYER", "PEN")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.213498, 0.25888)
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("3_2ymyl")
 PLAYER = NodePath("../Player")
 PEN = NodePath("../PetHouse")
@@ -334,4 +333,9 @@ text = "Return to Title?"
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 pitch_scale = 2.33
 
+[node name="ActionTimer" type="Timer" parent="."]
+wait_time = 45.0
+autostart = true
+
 [connection signal="pressed" from="CanvasLayer/Overlay2/Button" to="CanvasLayer/HandIdleSprite" method="_on_button_pressed"]
+[connection signal="timeout" from="ActionTimer" to="Pet" method="_on_action_timer_timeout"]

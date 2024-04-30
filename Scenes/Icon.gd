@@ -30,5 +30,6 @@ func set_albedo_texture(new_texture: Texture,type: int) -> void:
 		material_override.backlight = Color(1.0, 0.4, 0.4)  # Hex code ff6666
 		material_override.billboard_mode = StandardMaterial3D.BILLBOARD_ENABLED
 		material_override.billboard_keep_scale = false
+		material_override.shading_mode = StandardMaterial3D.SHADING_MODE_UNSHADED
 		
 
