@@ -15,7 +15,9 @@ var Pets = [preload("res://Sprites/PetRelated/Pet/furbeazel_Sprite.png"),
 	preload("res://Sprites/PetRelated/Pet/bones_Sprite.png"),preload("res://Sprites/PetRelated/Pet/aileen2_Sprite.png")]
 
 var Indicators = [preload("res://Sprites/PetRelated/UI/hungy.png"),
-	preload("res://Sprites/PetRelated/UI/eepy.png")]
+	preload("res://Sprites/PetRelated/UI/eepy.png"),preload("res://Sprites/PetRelated/UI/angy.png"),
+	preload("res://Sprites/PetRelated/UI/bubbletext.png"),preload("res://Sprites/PetRelated/UI/dirty.png"),
+	preload("res://Sprites/PetRelated/UI/siccy.png")]
 
 var Pens = [preload("res://Sprites/pet_HouseB2_Sprite.png"),
 	preload("res://Sprites/pet_HouseB_Sprite.png")]
