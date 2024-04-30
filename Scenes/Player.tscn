@@ -25,6 +25,9 @@ var mouse_state = 'normal'
 @onready var PEN : Node3D = $\"../PetHouse\".get_child(0)
 @onready var BAG : Node3D = $\"../Foodbag/StaticBody3D\"
 @onready var FRIS: Node3D = $\"../RigidBody3D\"
+@onready var BOWL : Node3D = $\"../Objects/Foodbowl/StaticBody3D\"
+
+@onready var animplay = $\"../AnimationPlayer\"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
@@ -36,17 +39,23 @@ func _input(event):
 			$\"../CanvasLayer/HandIdleSprite\".visible = false
 			$\"../CanvasLayer/Overlay2\".visible = true
 			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+			animplay.play(\"Pause_Screen\")
+			await animplay.animation_finished
 		elif mouse_state == 'pause':
 			mouse_state = 'normal'
 			$\"../CanvasLayer/HandIdleSprite\".visible = true
 			$\"../CanvasLayer/Overlay2\".visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			
+	###################################################################################3
+	##### TESTING
+	###################################################################################
 	if event.is_action_pressed(\"extra\"):
-		if PET.sleepy:
-			PET.sleepy = false
-			PET.sleep_cure = true
-		else:
-			PET.sleepy = true
+		PET.ICON.visible = false
+	###################################################################################3
+	##### TESTING
+	###################################################################################
+	
 	if event.is_action_pressed(\"interact\"):
 		if mouse_state == 'normal':
 			mouse_state = 'interact'
@@ -121,6 +130,8 @@ func _on_detection_body_entered(body):
 		BAG.player_in_sight = true
 	if body == FRIS:
 		FRIS.player_in_sight = true
+	if body == BOWL:
+		BOWL.player_in_sight = true
 
 
 func _on_detection_body_exited(body):
@@ -133,6 +144,8 @@ func _on_detection_body_exited(body):
 		BAG.player_in_sight = false
 	if body == FRIS:
 		FRIS.player_in_sight = false
+	if body == BOWL:
+		BOWL.player_in_sight = false
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7hahq"]
@@ -165,7 +178,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477823, 0)
 update_mode = 1
 
 [node name="Detection?" type="Area3D" parent="."]
-transform = Transform3D(7.00908, 0, 7.13252, 0, 10, 0, -7.13252, 0, 7.00908, 0, 0, -6.75317)
+transform = Transform3D(3.50454, 0, 3.56626, 0, 5, 0, -3.56626, 0, 3.50454, 0, 0, -3.27647)
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Detection?"]

@@ -17,6 +17,7 @@ var default_position = Vector2(900,514)
 var default_texture = preload("res://Sprites/PetRelated/UI/Sprites/hand_idle_Sprite.png")
 #var test = PLAYER.position
 
+var s = null
 
 @onready var OVERLAY = $"../Overlay"
 var runner:int = 0 
@@ -95,6 +96,15 @@ func _input(event):
 			self.position = holding[0].default_position
 			self.scale = holding[0].default_scale
 			temp = false
+		elif holding != [] and holding[0] == PLAYER.BAG:
+			if PLAYER.BOWL.player_in_sight == true:
+				PLAYER.BOWL.get_parent().set_albedo_texture(PLAYER.PET.Bowls[1],0)
+				
+				s = PLAYER.PET.Sounds[0]
+				if s != null:
+					$"../../SFX".stream = s
+					$"../../SFX".play()
+					s = null
 			
 	if event.is_action_pressed("r_click"):
 		if holding != []:
@@ -106,6 +116,8 @@ func _input(event):
 			################################################################# Add frisbee with physics body3d
 			holding = []
 			self.texture = default_texture
+			self.scale = Vector2(1,1)
+			self.position = Vector2(900,514)
 			temp = true
 
 # Function to update the sprite's scale based on its Y value
@@ -121,7 +133,7 @@ func update_scale():
 
 func sight_update():
 	var temp = []
-	if PLAYER.PET.player_in_sight and !PLAYER.BAG.uppies:
+	if PLAYER.PET.player_in_sight and !PLAYER.PET.uppies:
 		temp.append(PLAYER.PET)
 	if PLAYER.PEN.player_in_sight and !PLAYER.PEN.uppies:
 		temp.append(PLAYER.PEN)
@@ -136,3 +148,7 @@ func sight_update():
 func _on_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/title.tscn")
 	pass # Replace with function body.
+
+
+func _on_button_2_pressed():
+	get_tree().quit()

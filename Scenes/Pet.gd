@@ -3,6 +3,7 @@ extends CharacterBody3D
 #@export var SCREEN_NOTIF : VisibleOnScreenNotifier3D
 @export var PLAYER : Node
 @export var PEN : Node
+@export var BOWL : Node
 
 var pet_picked:int = StartVars.pet_picked
 
@@ -14,6 +15,7 @@ var s = null
 var Pets = [preload("res://Sprites/PetRelated/Pet/furbeazel_Sprite.png"),
 	preload("res://Sprites/PetRelated/Pet/bones_Sprite.png"),preload("res://Sprites/PetRelated/Pet/aileen2_Sprite.png")]
 
+#hungy, eepy, angy, bubble. dirty, siccy
 var Indicators = [preload("res://Sprites/PetRelated/UI/hungy.png"),
 	preload("res://Sprites/PetRelated/UI/eepy.png"),preload("res://Sprites/PetRelated/UI/angy.png"),
 	preload("res://Sprites/PetRelated/UI/bubbletext.png"),preload("res://Sprites/PetRelated/UI/dirty.png"),
@@ -21,6 +23,9 @@ var Indicators = [preload("res://Sprites/PetRelated/UI/hungy.png"),
 
 var Pens = [preload("res://Sprites/pet_HouseB2_Sprite.png"),
 	preload("res://Sprites/pet_HouseB_Sprite.png")]
+
+var Bowls = [preload("res://Sprites/PetRelated/UI/Sprites/bowl1_Sprite.png"),
+	preload("res://Sprites/PetRelated/UI/Sprites/bowl2_Sprite.png")]
 
 ################################################
 #Vars for picking up the pet
@@ -47,16 +52,17 @@ var player_in_sight : bool
 var looked_away : bool
 var personal_space = .75
 
-var sleepy:bool = false
+var mood = ""
 var sleep_cure:bool = false
 var state_switch:bool = false
 
-
+var random = RandomNumberGenerator.new()
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	random.randomize()
 	MESH.set_albedo_texture(Pets[pet_picked],0)
 	ICON.visible = false
 
@@ -91,7 +97,7 @@ func sight_update():
 func movement():
 	#Furbeasel ===================================================================
 	if pet_picked == 0:
-		if !sleepy and !uppies:
+		if mood != "sleepy" and !uppies:
 			s = Sounds[0]
 			
 			var x = (($"../Player".position.x - position.x) * 2/3)
@@ -115,11 +121,16 @@ func movement():
 		if !uppies:
 			position.x = (($"../Player".position.x - position.x) * 2/3) + position.x
 			position.z = (($"../Player".position.z - position.z) * 2/3) + position.z
-	
+
+####################################################################
+#State handles setting icons and interpreting moods
+####################################################################
+#mood num = hungy, sleepy, angy, bubble. dirty, siccy
 func state():
 	#Disturby ======================================================================
+	# hungy(foodbowl), sleepy(Pethouse), angy(frisbee)
 	if pet_picked == 0:
-		if sleepy:
+		if mood == "sleepy":
 			if !state_switch:
 				#print("I ran!")
 				ICON.set_albedo_texture(Indicators[1],1)
@@ -136,7 +147,7 @@ func state():
 					$"../SFX".stream = s
 					$"../SFX".play()
 					s = null
-		elif !sleepy:
+		elif mood != "sleepy":
 			if looked_away and sleep_cure:
 				state_switch = false
 				self.visible = true
@@ -144,45 +155,35 @@ func state():
 				ICON.visible = false
 				sleep_cure = false
 	#Bones ========================================================================================
+	#bubble, siccy(medicince)
 	elif pet_picked == 1:
-		
-		var undo = '''
-		if sleepy:
+		if mood == "bubble":
 			if !state_switch:
 				#print("I ran!")
-				ICON.set_albedo_texture(Indicators[1],1)
+				ICON.set_albedo_texture(Indicators[3],1)
 				ICON.visible = true
 				state_switch = true
-				s = Sounds[1]
-			if looked_away:
-				self.visible = false
-				PEN.set_albedo_texture(Pens[1],0)
-				position.x = PEN.position.x
-				position.z = PEN.position.z
-				
-				if s != null:
-					$"../SFX".stream = s
-					$"../SFX".play()
-					s = null
-		elif !sleepy:
-			if looked_away and sleep_cure:
-				state_switch = false
-				self.visible = true
-				PEN.set_albedo_texture(Pens[0],0)
-				ICON.visible = false
-				sleep_cure = false'''
-		pass #gonna make bones actually do nothing
+		elif mood == "siccy":
+			if !state_switch:
+				#print("I ran!")
+				ICON.set_albedo_texture(Indicators[5],1)
+				ICON.visible = true
+				state_switch = true
+		else:
+			
+			pass #gonna make bones actually do nothing
 	# Alein ===============================================================================================================
+	#siccy(medicine), sleepy(pethouse), dirty(waterhose)
 	elif pet_picked == 2:
-		if sleepy:
+		if mood == "sleepy":
 			if !state_switch:
 				#print("I ran!")
 				ICON.set_albedo_texture(Indicators[1],1)
 				ICON.visible = true
 				state_switch = true
 				s = Sounds[1]
-		elif !sleepy:
-			if looked_away and sleep_cure:
+		elif mood != "sleepy":
+			if sleep_cure:
 				state_switch = false
 				self.visible = true
 				PEN.set_albedo_texture(Pens[0],0)
@@ -191,7 +192,7 @@ func state():
 
 func _input(event):
 	if event.is_action_pressed("extra"):
-		print(sleepy)
+		pass
 
 
 ####################################################
@@ -205,11 +206,64 @@ func drop(input) -> void:
 	uppies = false
 	self.position = Vector3(input.x,get_parent().position.y+.5,input.z)
 	self.visible = true
+	
+	#putting Aileen in pen to sleep
+	if pet_picked == 2 and PLAYER.PEN.player_in_sight == true and mood == "sleepy":
+		self.visible = false
+		PEN.set_albedo_texture(Pens[1],0)
+		position.x = PEN.position.x
+		position.z = PEN.position.z
+		
+		s = Sounds[1]
+		if s != null:
+			$"../SFX".stream = s
+			$"../SFX".play()
+			s = null
 	#print("dropped")
 
 ####################################################
 #Functions for timers and pet states
 ###############################################
-
 func _on_action_timer_timeout():
+	print("timer")
+	var new_mood = 1
+	#var new_mood = random.randi_range(0, 6)
+	if ICON.visible == true:
+		if mood == "sleepy":
+			mood = ""
+			sleep_cure = true
+		elif pet_picked == 1:
+			pass
+		#gameover logic
+		else:
+			pass
+			
+			
+	#Else here decides pet states
+	#mood num = hungy, sleepy, angy, bubble. dirty, siccy
+	else:
+		#Disturby ======================================================================
+		if pet_picked == 0:
+			if new_mood == 0:
+				mood = "hungy"
+			elif new_mood == 1:
+				mood = "sleepy"
+			elif new_mood == 2:
+				mood = "angy"
+			
+		#Bones ========================================================================================
+		elif pet_picked == 1:
+			if new_mood == 3:
+				mood = "bubble"
+			elif new_mood == 5:
+				mood = "siccy"
+			pass #gonna make bones actually do nothing
+		# Alein ===============================================================================================================
+		elif pet_picked == 2:
+			if new_mood == 5:
+				mood = "siccy"
+			elif new_mood == 1:
+				mood = "sleepy"
+			elif new_mood == 4:
+				mood = "dirty"
 	pass # Replace with function body.

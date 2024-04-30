@@ -1,22 +1,28 @@
-[gd_scene load_steps=40 format=3 uid="uid://ci33aapjx1ea7"]
+[gd_scene load_steps=55 format=3 uid="uid://ci33aapjx1ea7"]
 
 [ext_resource type="PackedScene" uid="uid://ba7o6ijvf8if6" path="res://Scenes/WE_test.tscn" id="1_h3e0n"]
 [ext_resource type="PackedScene" uid="uid://bb6j07fe6ic6u" path="res://Scenes/Player.tscn" id="2_55glk"]
 [ext_resource type="Texture2D" uid="uid://0lwrae2h6nk4" path="res://Textures/grass2.jpg" id="2_dhwa8"]
 [ext_resource type="Script" path="res://Scenes/Pet.gd" id="3_2ymyl"]
 [ext_resource type="Texture2D" uid="uid://cb18ssydjnci" path="res://Textures/rough_wood_5_by_sharandra_d5agsrz-375w-2x.jpg" id="3_4gfpo"]
-[ext_resource type="Texture2D" uid="uid://54nqnga828v4" path="res://Sprites/foodBag_Shelf_Sprite.png" id="4_gd3p5"]
 [ext_resource type="PackedScene" uid="uid://g7i1g8wy5o8b" path="res://Scenes/pet_house.tscn" id="4_of2tq"]
 [ext_resource type="Texture2D" uid="uid://o6d4sqcovnr6" path="res://Sprites/PetRelated/UI/Sprites/toy3_Sprite.png" id="4_pdsbq"]
-[ext_resource type="Texture2D" uid="uid://b55uro4pvimea" path="res://Sprites/foodBag_Held_Sprite.png" id="6_2gcgv"]
+[ext_resource type="Texture2D" uid="uid://o543ynajb5fq" path="res://Sprites/HOLD THESE/toy3_Sprite.png" id="5_g2rt8"]
 [ext_resource type="Texture2D" uid="uid://wi4sw02ib1qx" path="res://Sprites/PetRelated/Pet/Disturby.png" id="6_c7cmv"]
 [ext_resource type="Script" path="res://Scenes/Pen.gd" id="6_o564q"]
 [ext_resource type="Script" path="res://Scenes/RigidBody3D.gd" id="6_oyfw6"]
 [ext_resource type="Texture2D" uid="uid://2u3qlpp5trc2" path="res://Sprites/PetRelated/UI/hungy.png" id="7_m1uup"]
-[ext_resource type="Texture2D" uid="uid://o543ynajb5fq" path="res://Sprites/toy3_Sprite.png" id="7_m8xl8"]
 [ext_resource type="Script" path="res://Scenes/Icon.gd" id="8_573me"]
-[ext_resource type="Texture2D" uid="uid://cw8rmtvke33kd" path="res://Sprites/hand_idle_Sprite.png" id="10_0l1ip"]
+[ext_resource type="Texture2D" uid="uid://54nqnga828v4" path="res://Sprites/HOLD THESE/foodBag_Shelf_Sprite.png" id="8_ffo62"]
+[ext_resource type="Texture2D" uid="uid://b55uro4pvimea" path="res://Sprites/HOLD THESE/foodBag_Held_Sprite.png" id="10_mi022"]
 [ext_resource type="Script" path="res://Scenes/HandIdleSprite.gd" id="11_cthqt"]
+[ext_resource type="Texture2D" uid="uid://dt23qta05phny" path="res://icon.svg" id="12_7c14m"]
+[ext_resource type="Texture2D" uid="uid://c52fsyei3dwhm" path="res://Sprites/PetRelated/UI/Sprites/hose_Sprite.png" id="13_qpmn6"]
+[ext_resource type="Texture2D" uid="uid://2roocav5ggv5" path="res://Sprites/PetRelated/UI/Sprites/bowl1_Sprite.png" id="14_jmpfc"]
+[ext_resource type="Texture2D" uid="uid://cw8rmtvke33kd" path="res://Sprites/HOLD THESE/hand_idle_Sprite.png" id="17_jdafw"]
+[ext_resource type="Texture2D" uid="uid://dy85784ar30du" path="res://Sprites/Backdrops/pawsscreen1.png" id="20_kbogb"]
+[ext_resource type="Texture2D" uid="uid://c01xtxf14m6oj" path="res://Sprites/Backdrops/pawsscreen2.png" id="21_5xhnv"]
+[ext_resource type="Script" path="res://Scenes/hover.gd" id="22_8vgjx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_y4g71"]
 size = Vector3(3.135, 0.237, 2.748)
@@ -58,7 +64,7 @@ size = Vector2(0.6, 0.6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idur8"]
 transparency = 1
-albedo_texture = ExtResource("4_gd3p5")
+albedo_texture = ExtResource("8_ffo62")
 billboard_mode = 2
 
 [sub_resource type="QuadMesh" id="QuadMesh_fbywy"]
@@ -66,6 +72,33 @@ material = SubResource("StandardMaterial3D_idur8")
 size = Vector2(0.5, 0.5)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ybqpo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmlm7"]
+transparency = 1
+albedo_texture = ExtResource("12_7c14m")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_2mxuh"]
+material = SubResource("StandardMaterial3D_gmlm7")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f7ply"]
+transparency = 1
+albedo_texture = ExtResource("13_qpmn6")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_coe6o"]
+material = SubResource("StandardMaterial3D_f7ply")
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_djv2i"]
+transparency = 1
+albedo_texture = ExtResource("14_jmpfc")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_2y11c"]
+material = SubResource("StandardMaterial3D_djv2i")
+size = Vector2(0.5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6sj4n"]
 transparency = 1
@@ -116,6 +149,91 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="Animation" id="Animation_bk16q"]
+resource_name = "Pause_Screen"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Overlay2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Overlay2/Pawsscreen2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(33.1069, 3152.02), Vector2(137.521, 2043.5), Vector2(134.975, 1333.18), Vector2(40.7471, 773.543)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Overlay2/Pawsscreen2:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.04839, 1.12813), Vector2(1.33797, 1.43974), Vector2(1.342, 1.444), Vector2(0.63837, 0.686927)]
+}
+
+[sub_resource type="Animation" id="Animation_nnbe6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Overlay2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Overlay2/Pawsscreen2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(40.7471, 773.543)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Overlay2/Pawsscreen2:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.63837, 0.686927)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m6viu"]
+_data = {
+"Pause_Screen": SubResource("Animation_bk16q"),
+"RESET": SubResource("Animation_nnbe6")
+}
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.264666, -0.308505, 0.472062)
@@ -188,7 +306,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.796642, 0.139432, -0.701499
 physics_material_override = SubResource("PhysicsMaterial_5aqek")
 script = ExtResource("6_oyfw6")
 object_name = "Frisbee"
-held_sprite = ExtResource("7_m8xl8")
+held_sprite = ExtResource("5_g2rt8")
 default_scale = Vector2(2, 2)
 default_position = Vector2(700, 650)
 PLAYER = NodePath("../Player")
@@ -213,7 +331,7 @@ transform = Transform3D(-0.999956, 0, -0.00935461, 0, 1, 0, 0.00935461, 0, -0.99
 physics_material_override = SubResource("PhysicsMaterial_ybqpo")
 script = ExtResource("6_o564q")
 object_name = "Pet Food"
-held_sprite = ExtResource("6_2gcgv")
+held_sprite = ExtResource("10_mi022")
 default_position = Vector2(600, 200)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Foodbag/StaticBody3D"]
@@ -221,6 +339,59 @@ transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, -7.54539e-05, 0, 
 shape = SubResource("BoxShape3D_msu42")
 
 [node name="PetHouse" parent="." instance=ExtResource("4_of2tq")]
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="Medicine" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.333239, -0.979623)
+mesh = SubResource("QuadMesh_2mxuh")
+script = ExtResource("8_573me")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Objects/Medicine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_ybqpo")
+script = ExtResource("6_o564q")
+object_name = "Medicine"
+held_sprite = ExtResource("10_mi022")
+default_position = Vector2(600, 200)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Medicine/StaticBody3D"]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0, 0)
+shape = SubResource("BoxShape3D_msu42")
+
+[node name="WaterHose" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45406, 0.322878, 0)
+mesh = SubResource("QuadMesh_coe6o")
+script = ExtResource("8_573me")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Objects/WaterHose"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_ybqpo")
+script = ExtResource("6_o564q")
+object_name = "Hose"
+held_sprite = ExtResource("13_qpmn6")
+default_position = Vector2(600, 200)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/WaterHose/StaticBody3D"]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0, 0)
+shape = SubResource("BoxShape3D_msu42")
+
+[node name="Foodbowl" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.43024, 0.123497, -0.217712)
+mesh = SubResource("QuadMesh_2y11c")
+script = ExtResource("8_573me")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Objects/Foodbowl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_ybqpo")
+script = ExtResource("6_o564q")
+object_name = "Foodbowl"
+held_sprite = ExtResource("13_qpmn6")
+default_position = Vector2(600, 200)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Foodbowl/StaticBody3D"]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0, 0)
+shape = SubResource("BoxShape3D_msu42")
 
 [node name="Player" parent="." node_paths=PackedStringArray("PET") instance=ExtResource("2_55glk")]
 transform = Transform3D(0.125, 0, 0, 0, 0.125, 0, 0, 0, 0.125, 0.0522606, 0.366756, -0.0311457)
@@ -301,41 +472,53 @@ uppercase = true
 
 [node name="HandIdleSprite" type="Sprite2D" parent="CanvasLayer" node_paths=PackedStringArray("PLAYER")]
 position = Vector2(900, 514)
-texture = ExtResource("10_0l1ip")
+texture = ExtResource("17_jdafw")
 offset = Vector2(-40, -40)
 script = ExtResource("11_cthqt")
 PLAYER = NodePath("../../Player")
 
-[node name="Overlay2" type="Panel" parent="CanvasLayer"]
+[node name="Overlay2" type="Sprite2D" parent="CanvasLayer"]
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -575.0
-offset_top = -325.0
-offset_right = 575.0
-offset_bottom = 325.0
-grow_horizontal = 2
-grow_vertical = 2
+position = Vector2(579, 112.5)
+scale = Vector2(0.392667, 0.371667)
+texture = ExtResource("20_kbogb")
 
 [node name="Button" type="Button" parent="CanvasLayer/Overlay2"]
-layout_mode = 0
-offset_left = 394.0
-offset_top = 244.0
-offset_right = 729.0
-offset_bottom = 411.0
-theme_override_font_sizes/font_size = 40
+offset_left = 555.178
+offset_top = 910.762
+offset_right = 1237.18
+offset_bottom = 1100.76
+theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_5by28")
 text = "Return to Title?"
+
+[node name="Button2" type="Button" parent="CanvasLayer/Overlay2"]
+offset_left = -1102.72
+offset_top = 870.404
+offset_right = -420.716
+offset_bottom = 1060.4
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_5by28")
+text = "Quit Game"
+
+[node name="Pawsscreen2" type="Sprite2D" parent="CanvasLayer/Overlay2"]
+position = Vector2(40.7471, 773.543)
+scale = Vector2(0.63837, 0.686927)
+texture = ExtResource("21_5xhnv")
+script = ExtResource("22_8vgjx")
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 pitch_scale = 2.33
 
 [node name="ActionTimer" type="Timer" parent="."]
-wait_time = 45.0
+wait_time = 10.0
 autostart = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m6viu")
+}
+
 [connection signal="pressed" from="CanvasLayer/Overlay2/Button" to="CanvasLayer/HandIdleSprite" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Overlay2/Button2" to="CanvasLayer/HandIdleSprite" method="_on_button_2_pressed"]
 [connection signal="timeout" from="ActionTimer" to="Pet" method="_on_action_timer_timeout"]
