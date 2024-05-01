@@ -15,6 +15,8 @@ var tempy
 var default_scale = Vector2(1,1)
 var default_position = Vector2(900,514)
 var default_texture = preload("res://Sprites/PetRelated/UI/Sprites/hand_idle_Sprite.png")
+var hose_two_texture = preload("res://Sprites/PetRelated/UI/Sprites/hosemerged.png")
+
 #var test = PLAYER.position
 
 var s = null
@@ -96,20 +98,50 @@ func _input(event):
 			self.position = holding[0].default_position
 			self.scale = holding[0].default_scale
 			temp = false
+			
+		elif holding == [] and PLAYER.PET.player_in_sight:
+			PLAYER.PET.bubble_cure = true
+			
 		elif holding != [] and holding[0] == PLAYER.BAG:
 			if PLAYER.BOWL.player_in_sight == true:
 				PLAYER.BOWL.get_parent().set_albedo_texture(PLAYER.PET.Bowls[1],0)
+				PLAYER.PET.hungy_cure = true
 				
 				s = PLAYER.PET.Sounds[0]
 				if s != null:
 					$"../../SFX".stream = s
 					$"../../SFX".play()
 					s = null
-			
+					
+		elif holding != [] and holding[0] == PLAYER.PILLS:
+			if PLAYER.PET.player_in_sight == true:
+				PLAYER.PET.siccy_cure = true
+				
+		elif holding != [] and holding[0] == PLAYER.HOSE:
+			if PLAYER.hose_onoff:
+				self.texture = holding[0].held_sprite
+				PLAYER.hose_onoff = false
+			else:
+				self.texture = hose_two_texture
+				PLAYER.hose_onoff = true
+				
+				if PLAYER.PET.mood == "dirty" and PLAYER.PET.player_in_sight == true:
+					PLAYER.PET.dirty_cure = true
+				
+				#play running water noise
+				s = PLAYER.PET.Sounds[0]
+				if s != null:
+					$"../../SFX".stream = s
+					$"../../SFX".play()
+					s = null
 	if event.is_action_pressed("r_click"):
 		if holding != []:
+			PLAYER.hose_onoff = false
 			PLAYER.mouse_state = "normal"
-			holding[0].drop(PLAYER.position)
+			if holding[0] == PLAYER.HOSE:
+				holding[0].drop(PLAYER.HOSE.get_parent().position)
+			else:
+				holding[0].drop(PLAYER.position)
 			#holding[0].constant_linear_velocity = Vector3(10,-10,10)
 			#print(holding[0].constant_linear_velocity)
 			################################################################# to_local() - handles transfomation math
@@ -141,14 +173,11 @@ func sight_update():
 		temp.append(PLAYER.BAG)
 	if PLAYER.FRIS.player_in_sight and !PLAYER.FRIS.uppies:
 		temp.append(PLAYER.FRIS)
+	if PLAYER.PILLS.player_in_sight and !PLAYER.PILLS.uppies:
+		temp.append(PLAYER.PILLS)
+	if PLAYER.HOSE.player_in_sight and !PLAYER.HOSE.uppies:
+		temp.append(PLAYER.HOSE)
 		
 	return temp
 
 
-func _on_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/title.tscn")
-	pass # Replace with function body.
-
-
-func _on_button_2_pressed():
-	get_tree().quit()

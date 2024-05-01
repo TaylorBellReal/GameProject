@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 StartVars="*res://Start_Vars.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 move_forward={

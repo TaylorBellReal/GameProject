@@ -8,6 +8,7 @@ var uppies:bool = false
 @export var default_position = Vector2(900,514)
 @onready var PARENT = self
 @export var PLAYER : Node
+@export var PET: Node
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -36,6 +37,8 @@ func drop(input) -> void:
 	#print("dropped")
 	uppies = false
 	#shoot()
+	if PET.mood == "angy":
+		PET.thrown_fris = true
 	launchObject()
 
 func _ready():

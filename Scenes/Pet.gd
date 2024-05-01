@@ -4,6 +4,7 @@ extends CharacterBody3D
 @export var PLAYER : Node
 @export var PEN : Node
 @export var BOWL : Node
+@export var FRIS : Node
 
 var pet_picked:int = StartVars.pet_picked
 
@@ -52,9 +53,17 @@ var player_in_sight : bool
 var looked_away : bool
 var personal_space = .75
 
-var mood = ""
+var mood = "none"
 var sleep_cure:bool = false
+var hungy_cure:bool = false
+var angy_cure:bool = false
+var bubble_cure:bool = false
+var siccy_cure:bool = false
+var dirty_cure:bool = false
+var thrown_fris = false
 var state_switch:bool = false
+
+var move_switch:bool = false
 
 var random = RandomNumberGenerator.new()
 
@@ -90,16 +99,40 @@ func sight_update():
 	else:
 		if !looked_away:
 			looked_away = true
-			movement()
 			print("Not Looking")
 		pass
+	movement()
 		
 func movement():
 	#Furbeasel ===================================================================
 	if pet_picked == 0:
-		if mood != "sleepy" and !uppies:
-			s = Sounds[0]
+		s = Sounds[0]
+		print(mood)
+		if mood == "hungy" and !uppies:
+			self.position.x = BOWL.position.x + .1
+			self.position.z = BOWL.position.z
 			
+			if s != null:
+				$"../SFX".stream = s
+				$"../SFX".play()
+				s = null
+				
+		elif mood == "angy" and !uppies:
+			if FRIS.uppies == false:
+				self.position.x = FRIS.position.x + .1
+				self.position.z = FRIS.position.z
+				
+				if thrown_fris == true:
+					angy_cure = true
+					thrown_fris = false
+				
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
+				pass
+			
+		elif mood != "asleep" and !uppies and looked_away:
 			var x = (($"../Player".position.x - position.x) * 2/3)
 			var z = (($"../Player".position.z - position.z) * 2/3)
 			if abs(x) < personal_space:
@@ -118,9 +151,12 @@ func movement():
 		pass
 	#Alien ===========================================================================
 	elif pet_picked == 2:
-		if !uppies:
+		if !looked_away:
+			move_switch = true
+		if !uppies and looked_away and move_switch:
 			position.x = (($"../Player".position.x - position.x) * 2/3) + position.x
 			position.z = (($"../Player".position.z - position.z) * 2/3) + position.z
+			move_switch = false
 
 ####################################################################
 #State handles setting icons and interpreting moods
@@ -142,11 +178,39 @@ func state():
 				PEN.set_albedo_texture(Pens[1],0)
 				position.x = PEN.position.x
 				position.z = PEN.position.z
-				
+				mood = "asleep"
+				s = Sounds[1]
 				if s != null:
 					$"../SFX".stream = s
 					$"../SFX".play()
 					s = null
+					
+		elif mood == "hungy":
+			if !state_switch:
+				ICON.set_albedo_texture(Indicators[0],1)
+				ICON.visible = true
+				state_switch = true
+				
+			if hungy_cure:
+				print("ran")
+				BOWL.set_albedo_texture(Bowls[0],0)
+				state_switch = false
+				ICON.visible = false
+				hungy_cure = false
+				mood = "none"
+				
+		elif mood == "angy":
+			if !state_switch:
+				ICON.set_albedo_texture(Indicators[2],1)
+				ICON.visible = true
+				state_switch = true
+			
+			if angy_cure:
+				state_switch = false
+				ICON.visible = false
+				hungy_cure = false
+				mood = "none"
+				
 		elif mood != "sleepy":
 			if looked_away and sleep_cure:
 				state_switch = false
@@ -163,12 +227,23 @@ func state():
 				ICON.set_albedo_texture(Indicators[3],1)
 				ICON.visible = true
 				state_switch = true
+			if bubble_cure:
+				state_switch = false
+				ICON.visible = false
+				bubble_cure = false
+				mood = "none"
+				
 		elif mood == "siccy":
 			if !state_switch:
 				#print("I ran!")
 				ICON.set_albedo_texture(Indicators[5],1)
 				ICON.visible = true
 				state_switch = true
+			if siccy_cure:
+				state_switch = false
+				ICON.visible = false
+				siccy_cure = false
+				mood = "none"
 		else:
 			
 			pass #gonna make bones actually do nothing
@@ -182,6 +257,31 @@ func state():
 				ICON.visible = true
 				state_switch = true
 				s = Sounds[1]
+		
+		elif mood == "siccy":
+			if !state_switch:
+				#print("I ran!")
+				ICON.set_albedo_texture(Indicators[5],1)
+				ICON.visible = true
+				state_switch = true
+			if siccy_cure:
+				state_switch = false
+				ICON.visible = false
+				siccy_cure = false
+				mood = "none"
+		
+		elif mood == "dirty":
+			if !state_switch:
+				#print("I ran!")
+				ICON.set_albedo_texture(Indicators[4],1)
+				ICON.visible = true
+				state_switch = true
+			if dirty_cure:
+				state_switch = false
+				ICON.visible = false
+				dirty_cure = false
+				mood = "none"
+				
 		elif mood != "sleepy":
 			if sleep_cure:
 				state_switch = false
@@ -226,14 +326,19 @@ func drop(input) -> void:
 ###############################################
 func _on_action_timer_timeout():
 	print("timer")
-	var new_mood = 1
-	#var new_mood = random.randi_range(0, 6)
+	#var new_mood = 4
+	var new_mood = random.randi_range(0, 5)
+	
+	#bones always fixes himself
+	if pet_picked == 1:
+		ICON.visible = false
+		mood = "none"
+	
+	#For moods and others
 	if ICON.visible == true:
-		if mood == "sleepy":
-			mood = ""
+		if mood == "asleep":
+			mood = "none"
 			sleep_cure = true
-		elif pet_picked == 1:
-			pass
 		#gameover logic
 		else:
 			pass
@@ -242,6 +347,7 @@ func _on_action_timer_timeout():
 	#Else here decides pet states
 	#mood num = hungy, sleepy, angy, bubble. dirty, siccy
 	else:
+		#state_switch = false
 		#Disturby ======================================================================
 		if pet_picked == 0:
 			if new_mood == 0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ci33aapjx1ea7"]
+[gd_scene load_steps=60 format=3 uid="uid://ci33aapjx1ea7"]
 
 [ext_resource type="PackedScene" uid="uid://ba7o6ijvf8if6" path="res://Scenes/WE_test.tscn" id="1_h3e0n"]
 [ext_resource type="PackedScene" uid="uid://bb6j07fe6ic6u" path="res://Scenes/Player.tscn" id="2_55glk"]
@@ -16,13 +16,15 @@
 [ext_resource type="Texture2D" uid="uid://54nqnga828v4" path="res://Sprites/HOLD THESE/foodBag_Shelf_Sprite.png" id="8_ffo62"]
 [ext_resource type="Texture2D" uid="uid://b55uro4pvimea" path="res://Sprites/HOLD THESE/foodBag_Held_Sprite.png" id="10_mi022"]
 [ext_resource type="Script" path="res://Scenes/HandIdleSprite.gd" id="11_cthqt"]
-[ext_resource type="Texture2D" uid="uid://dt23qta05phny" path="res://icon.svg" id="12_7c14m"]
+[ext_resource type="Texture2D" uid="uid://darhwbhmd08j4" path="res://Sprites/PetRelated/UI/Sprites/medicineBottle.png" id="12_sp2rn"]
 [ext_resource type="Texture2D" uid="uid://c52fsyei3dwhm" path="res://Sprites/PetRelated/UI/Sprites/hose_Sprite.png" id="13_qpmn6"]
 [ext_resource type="Texture2D" uid="uid://2roocav5ggv5" path="res://Sprites/PetRelated/UI/Sprites/bowl1_Sprite.png" id="14_jmpfc"]
+[ext_resource type="Texture2D" uid="uid://by5cjx6qw45i6" path="res://Sprites/PetRelated/UI/Sprites/hosehead.png" id="14_pmo8n"]
 [ext_resource type="Texture2D" uid="uid://cw8rmtvke33kd" path="res://Sprites/HOLD THESE/hand_idle_Sprite.png" id="17_jdafw"]
 [ext_resource type="Texture2D" uid="uid://dy85784ar30du" path="res://Sprites/Backdrops/pawsscreen1.png" id="20_kbogb"]
 [ext_resource type="Texture2D" uid="uid://c01xtxf14m6oj" path="res://Sprites/Backdrops/pawsscreen2.png" id="21_5xhnv"]
 [ext_resource type="Script" path="res://Scenes/hover.gd" id="22_8vgjx"]
+[ext_resource type="Texture2D" uid="uid://b3wr8fhuqeil8" path="res://Sprites/Backdrops/youLived.png" id="25_hllri"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_y4g71"]
 size = Vector3(3.135, 0.237, 2.748)
@@ -75,12 +77,12 @@ size = Vector2(0.5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmlm7"]
 transparency = 1
-albedo_texture = ExtResource("12_7c14m")
+albedo_texture = ExtResource("12_sp2rn")
 billboard_mode = 2
 
 [sub_resource type="QuadMesh" id="QuadMesh_2mxuh"]
 material = SubResource("StandardMaterial3D_gmlm7")
-size = Vector2(0.5, 0.5)
+size = Vector2(0.75, 0.75)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f7ply"]
 transparency = 1
@@ -149,6 +151,9 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kek3f"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_bk16q"]
 resource_name = "Pause_Screen"
@@ -228,11 +233,123 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0.63837, 0.686927)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/Endscreen/YouLived:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(345, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/Endscreen/YouLived:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1003, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayer/Endscreen/YouLived:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_37ygq"]
+resource_name = "unpause"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Overlay2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k70u5"]
+resource_name = "win_screen"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Endscreen/YouLived:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(932, -0.25, 0, 0.25, 0, 939, -0.25, 0, 0.25, 0, 278, -0.25, 0, 0.25, 0, 588, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1, 1.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Endscreen/YouLived:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(980, -0.25, 0, 0.25, 0, 573, -0.25, 0, 0.25, 0, 416, -0.25, 0, 0.25, 0, 317, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1, 1.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Endscreen/YouLived:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.53058, -0.25, 0, 0.25, 0, -0.619592, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1, 1.5)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m6viu"]
 _data = {
 "Pause_Screen": SubResource("Animation_bk16q"),
-"RESET": SubResource("Animation_nnbe6")
+"RESET": SubResource("Animation_nnbe6"),
+"unpause": SubResource("Animation_37ygq"),
+"win_screen": SubResource("Animation_k70u5")
 }
 
 [node name="Node3D" type="Node3D"]
@@ -301,7 +418,7 @@ physics_material_override = SubResource("PhysicsMaterial_ywrhj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.54539e-05, 0, 0.00333285)
 shape = SubResource("BoxShape3D_e6cyj")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." node_paths=PackedStringArray("PLAYER")]
+[node name="RigidBody3D" type="RigidBody3D" parent="." node_paths=PackedStringArray("PLAYER", "PET")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.796642, 0.139432, -0.701499)
 physics_material_override = SubResource("PhysicsMaterial_5aqek")
 script = ExtResource("6_oyfw6")
@@ -310,6 +427,7 @@ held_sprite = ExtResource("5_g2rt8")
 default_scale = Vector2(2, 2)
 default_position = Vector2(700, 650)
 PLAYER = NodePath("../Player")
+PET = NodePath("../Pet")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, -7.54539e-05, 0, 0.00333285)
@@ -343,7 +461,7 @@ shape = SubResource("BoxShape3D_msu42")
 [node name="Objects" type="Node3D" parent="."]
 
 [node name="Medicine" type="MeshInstance3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.333239, -0.979623)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.204591, -1.21752)
 mesh = SubResource("QuadMesh_2mxuh")
 script = ExtResource("8_573me")
 
@@ -352,8 +470,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 physics_material_override = SubResource("PhysicsMaterial_ybqpo")
 script = ExtResource("6_o564q")
 object_name = "Medicine"
-held_sprite = ExtResource("10_mi022")
-default_position = Vector2(600, 200)
+held_sprite = ExtResource("12_sp2rn")
+default_scale = Vector2(1.5, 1.5)
+default_position = Vector2(300, 400)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/Medicine/StaticBody3D"]
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0, 0)
@@ -369,8 +488,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 physics_material_override = SubResource("PhysicsMaterial_ybqpo")
 script = ExtResource("6_o564q")
 object_name = "Hose"
-held_sprite = ExtResource("13_qpmn6")
-default_position = Vector2(600, 200)
+held_sprite = ExtResource("14_pmo8n")
+default_position = Vector2(600, 500)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Objects/WaterHose/StaticBody3D"]
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0, 0)
@@ -397,13 +516,15 @@ shape = SubResource("BoxShape3D_msu42")
 transform = Transform3D(0.125, 0, 0, 0, 0.125, 0, 0, 0, 0.125, 0.0522606, 0.366756, -0.0311457)
 PET = NodePath("../Pet")
 
-[node name="Pet" type="CharacterBody3D" parent="." node_paths=PackedStringArray("PLAYER", "PEN")]
+[node name="Pet" type="CharacterBody3D" parent="." node_paths=PackedStringArray("PLAYER", "PEN", "BOWL", "FRIS")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.213498, 0.25888)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("3_2ymyl")
 PLAYER = NodePath("../Player")
 PEN = NodePath("../PetHouse")
+BOWL = NodePath("../Objects/Foodbowl")
+FRIS = NodePath("../RigidBody3D")
 
 [node name="Mesh" type="MeshInstance3D" parent="Pet"]
 cast_shadow = 0
@@ -507,11 +628,29 @@ scale = Vector2(0.63837, 0.686927)
 texture = ExtResource("21_5xhnv")
 script = ExtResource("22_8vgjx")
 
+[node name="Endscreen" type="Panel" parent="CanvasLayer"]
+visible = false
+offset_left = -29.0
+offset_top = -14.0
+offset_right = 1177.0
+offset_bottom = 680.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kek3f")
+
+[node name="YouLived" type="Sprite2D" parent="CanvasLayer/Endscreen"]
+position = Vector2(345, 1003)
+scale = Vector2(0.242667, 0.242667)
+texture = ExtResource("25_hllri")
+
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 pitch_scale = 2.33
 
 [node name="ActionTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 25.0
+autostart = true
+
+[node name="ShiftTimer" type="Timer" parent="."]
+wait_time = 300.0
+one_shot = true
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -519,6 +658,7 @@ libraries = {
 "": SubResource("AnimationLibrary_m6viu")
 }
 
-[connection signal="pressed" from="CanvasLayer/Overlay2/Button" to="CanvasLayer/HandIdleSprite" method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Overlay2/Button2" to="CanvasLayer/HandIdleSprite" method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/Overlay2/Button" to="Player" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Overlay2/Button2" to="Player" method="_on_button_2_pressed"]
 [connection signal="timeout" from="ActionTimer" to="Pet" method="_on_action_timer_timeout"]
+[connection signal="timeout" from="ShiftTimer" to="Player" method="_on_shift_timer_timeout"]

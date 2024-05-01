@@ -15,6 +15,8 @@ var _tilt_input : float
 var _player_rotation : Vector3
 var _camera_rotation : Vector3
 
+var hose_onoff:bool = false
+
 var mouse_state = 'normal'
 
 @export var MOUSE_SENSITIVITY : float = .25
@@ -26,6 +28,8 @@ var mouse_state = 'normal'
 @onready var BAG : Node3D = $\"../Foodbag/StaticBody3D\"
 @onready var FRIS: Node3D = $\"../RigidBody3D\"
 @onready var BOWL : Node3D = $\"../Objects/Foodbowl/StaticBody3D\"
+@onready var HOSE: Node3D = $\"../Objects/WaterHose/StaticBody3D\"
+@onready var PILLS: Node3D = $\"../Objects/Medicine/StaticBody3D\"
 
 @onready var animplay = $\"../AnimationPlayer\"
 
@@ -41,7 +45,10 @@ func _input(event):
 			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 			animplay.play(\"Pause_Screen\")
 			await animplay.animation_finished
+			$\"../CanvasLayer/Overlay2/Pawsscreen2\".on_off_switch = true
 		elif mouse_state == 'pause':
+			animplay.play(\"unpause\")
+			await animplay.animation_finished
 			mouse_state = 'normal'
 			$\"../CanvasLayer/HandIdleSprite\".visible = true
 			$\"../CanvasLayer/Overlay2\".visible = false
@@ -132,6 +139,10 @@ func _on_detection_body_entered(body):
 		FRIS.player_in_sight = true
 	if body == BOWL:
 		BOWL.player_in_sight = true
+	if body == PILLS:
+		PILLS.player_in_sight = true
+	if body == HOSE:
+		HOSE.player_in_sight = true
 
 
 func _on_detection_body_exited(body):
@@ -146,6 +157,31 @@ func _on_detection_body_exited(body):
 		FRIS.player_in_sight = false
 	if body == BOWL:
 		BOWL.player_in_sight = false
+	if body == PILLS:
+		PILLS.player_in_sight = false
+	if body == HOSE:
+		HOSE.player_in_sight = false
+
+
+func _on_shift_timer_timeout():
+	$\"../CanvasLayer/Endscreen\".visible = true
+	animplay.play(\"win_screen\")
+	await animplay.animation_finished
+	get_tree().change_scene_to_file(\"res://Scenes/title.tscn\")
+	pass # Replace with function body.
+
+
+func _on_button_pressed():
+	$\"../CanvasLayer/Overlay\".visible = true
+	$\"../CanvasLayer/Overlay/Panel\".visible = false
+	animplay.play(\"unpause\")
+	await animplay.animation_finished
+	get_tree().change_scene_to_file(\"res://Scenes/title.tscn\")
+	pass # Replace with function body.
+
+
+func _on_button_2_pressed():
+	get_tree().quit()
 "
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7hahq"]
@@ -178,7 +214,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477823, 0)
 update_mode = 1
 
 [node name="Detection?" type="Area3D" parent="."]
-transform = Transform3D(3.50454, 0, 3.56626, 0, 5, 0, -3.56626, 0, 3.50454, 0, 0, -3.27647)
+transform = Transform3D(1.75227, 0, 1.78313, 0, 2.5, 0, -1.78313, 0, 1.75227, 0, 0, -1.49521)
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Detection?"]
