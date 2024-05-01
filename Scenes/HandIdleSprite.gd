@@ -41,7 +41,7 @@ func _unhandled_input(event):
 	
 	if event.is_action_pressed("mouse_wheel_down") and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN:
 		if !sightArray == []:
-			print(sightArray[runner])
+			#print(sightArray[runner])
 			OVERLAY.get_child(0).get_child(0).text = sightArray[runner].object_name
 			OVERLAY.visible = true
 			self.visible = false
@@ -53,7 +53,7 @@ func _unhandled_input(event):
 	
 	if event.is_action_pressed("mouse_wheel_up") and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN:
 		if !sightArray == []:
-			print(sightArray[runner])
+			#print(sightArray[runner])
 			OVERLAY.get_child(0).get_child(0).text = sightArray[runner].object_name
 			OVERLAY.visible = true
 			self.visible = false
@@ -70,7 +70,7 @@ func _unhandled_input(event):
 			position = get_viewport().get_mouse_position()
 			
 			sightArray = sight_update()
-			print(sightArray)
+			#print(sightArray)
 			runner = 0
 		position = get_viewport().get_mouse_position()
 		update_scale()

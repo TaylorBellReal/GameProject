@@ -114,7 +114,7 @@ func sight_update():
 		if !looked_away:
 			looked_away = true
 			movement()
-			print("Not Looking")
+			#print("Not Looking")
 		pass
 	#movement()
 		
@@ -122,7 +122,7 @@ func movement():
 	#Furbeasel ===================================================================
 	if pet_picked == 0:
 		s = Sounds[0]
-		print(mood)
+		#print(mood)
 		if mood == "hungy" and !uppies:
 			self.position.x = BOWL.position.x + .1
 			self.position.z = BOWL.position.z
@@ -211,7 +211,7 @@ func state():
 				state_switch = true
 				
 			if hungy_cure:
-				print("ran")
+				#print("ran")
 				BOWL.set_albedo_texture(Bowls[0],0)
 				state_switch = false
 				ICON.visible = false
@@ -353,8 +353,8 @@ func drop(input) -> void:
 func _on_action_timer_timeout():
 	#var new_mood = 4
 	var new_mood = random.randi_range(0, 5)
-	print("timer")
-	print(new_mood)
+	#print("timer")
+	#print(new_mood)
 	#bones always fixes himself
 	if pet_picked == 1:
 		mood = "none"
@@ -460,5 +460,5 @@ func _on_action_timer_timeout():
 					$"../SFX".stream = s
 					$"../SFX".play()
 					s = null
-	print(mood)
+	#print(mood)
 	pass # Replace with function body.
