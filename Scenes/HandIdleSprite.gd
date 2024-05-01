@@ -107,7 +107,7 @@ func _input(event):
 				PLAYER.BOWL.get_parent().set_albedo_texture(PLAYER.PET.Bowls[1],0)
 				PLAYER.PET.hungy_cure = true
 				
-				s = PLAYER.PET.Sounds[0]
+				s = PLAYER.PET.Sounds[8]
 				if s != null:
 					$"../../SFX".stream = s
 					$"../../SFX".play()
@@ -129,7 +129,7 @@ func _input(event):
 					PLAYER.PET.dirty_cure = true
 				
 				#play running water noise
-				s = PLAYER.PET.Sounds[0]
+				s = PLAYER.PET.Sounds[6]
 				if s != null:
 					$"../../SFX".stream = s
 					$"../../SFX".play()

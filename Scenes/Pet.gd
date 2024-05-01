@@ -8,10 +8,20 @@ extends CharacterBody3D
 
 var pet_picked:int = StartVars.pet_picked
 
+#furmove,housesleep,furattack,aiattack
 var Sounds = [preload("res://Sounds/Untitled video.mp3"),
 	preload("res://Sounds/wooden-door-slamming-close-79934.mp3"),
 	preload("res://Sounds/Untitled video - Made with Clipchamp (2).wav"),
-	preload("res://Sounds/316107__littlerobotsoundfactory__alien_funny_04.wav")]
+	preload("res://Sounds/316107__littlerobotsoundfactory__alien_funny_04.wav")
+	#
+	#ai move,petnotif,hose,eating
+	,preload("res://Sounds/221089__alaskarobotics__squishy-oobleck-goo-[AudioTrimmer.com].wav"),
+	preload("res://Sounds/259174__foolboymedia__notification-squeak.wav"),
+	preload("res://Sounds/323485__meisterjaan__spraying-water-from-a-garden-hose-[AudioTrimmer.com].wav"),
+	preload("res://Sounds/324767__efeberton__crunch-[AudioTrimmer.com].wav")
+	
+	#foodbowl,
+	,preload("res://Sounds/398027__swordofkings128__cereal-pouring-[AudioTrimmer.com].wav")]
 
 var s = null
 
@@ -156,10 +166,16 @@ func movement():
 		pass
 	#Alien ===========================================================================
 	elif pet_picked == 2:
+		s = Sounds[4]
 		if !uppies:
 			position.x = (($"../Player".position.x - position.x) * 2/3) + position.x
 			position.z = (($"../Player".position.z - position.z) * 2/3) + position.z
 			move_switch = false
+			
+			if s != null:
+				$"../SFX".stream = s
+				$"../SFX".play()
+				s = null
 
 ####################################################################
 #State handles setting icons and interpreting moods
@@ -201,6 +217,11 @@ func state():
 				ICON.visible = false
 				hungy_cure = false
 				mood = "none"
+				s = Sounds[7]
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
 				
 		elif mood == "angy":
 			if !state_switch:
@@ -230,6 +251,7 @@ func state():
 				ICON.set_albedo_texture(Indicators[3],1)
 				ICON.visible = true
 				state_switch = true
+				bubble_cure = false
 			if bubble_cure:
 				state_switch = false
 				ICON.visible = false
@@ -242,6 +264,7 @@ func state():
 				ICON.set_albedo_texture(Indicators[5],1)
 				ICON.visible = true
 				state_switch = true
+				siccy_cure = false
 			if siccy_cure:
 				state_switch = false
 				ICON.visible = false
@@ -334,8 +357,9 @@ func _on_action_timer_timeout():
 	print(new_mood)
 	#bones always fixes himself
 	if pet_picked == 1:
-		ICON.visible = false
 		mood = "none"
+		ICON.visible = false
+		state_switch = false
 	
 	#For moods and others
 	if ICON.visible == true:
@@ -344,6 +368,10 @@ func _on_action_timer_timeout():
 			sleep_cure = true
 		#gameover logic
 		else:
+			s = preload("res://Sounds/701257__jim-bretherick__cthulhu-horror1-[AudioTrimmer.com].wav")
+			$"../Music".stop()
+			$"../Music".stream = s
+			$"../Music".play()
 			if pet_picked == 0:
 				s = Sounds[2]
 				if s != null:
@@ -373,29 +401,64 @@ func _on_action_timer_timeout():
 	#Else here decides pet states
 	#mood num = hungy, sleepy, angy, bubble. dirty, siccy
 	else:
+		s = Sounds[5]
 		#state_switch = false
 		#Disturby ======================================================================
 		if pet_picked == 0:
 			if new_mood == 0:
 				mood = "hungy"
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
 			elif new_mood == 1:
 				mood = "sleepy"
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
 			elif new_mood == 2:
 				mood = "angy"
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
 			
 		#Bones ========================================================================================
 		elif pet_picked == 1:
 			if new_mood == 3:
 				mood = "bubble"
+				#ICON.visible = true
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
 			elif new_mood == 5:
 				mood = "siccy"
-			pass #gonna make bones actually do nothing
+				#ICON.visible = true
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
 		# Alein ===============================================================================================================
 		elif pet_picked == 2:
 			if new_mood == 5:
 				mood = "siccy"
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
 			elif new_mood == 1:
 				mood = "sleepy"
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
 			elif new_mood == 4:
 				mood = "dirty"
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
+	print(mood)
 	pass # Replace with function body.
