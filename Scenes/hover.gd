@@ -9,7 +9,7 @@ var set_up_val:bool = false
 @export var on_off_switch:bool = false
 @export var boundary_x = 32
 @export var boundary_y = 16
-@export var speed = 1
+@export var speed = .25
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

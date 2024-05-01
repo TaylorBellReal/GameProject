@@ -9,7 +9,9 @@ extends CharacterBody3D
 var pet_picked:int = StartVars.pet_picked
 
 var Sounds = [preload("res://Sounds/Untitled video.mp3"),
-	preload("res://Sounds/wooden-door-slamming-close-79934.mp3")]
+	preload("res://Sounds/wooden-door-slamming-close-79934.mp3"),
+	preload("res://Sounds/Untitled video - Made with Clipchamp (2).wav"),
+	preload("res://Sounds/316107__littlerobotsoundfactory__alien_funny_04.wav")]
 
 var s = null
 
@@ -71,6 +73,8 @@ var random = RandomNumberGenerator.new()
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	$"../CanvasLayer/Disturby".visible = false
+	$"../CanvasLayer/Aileen1Sprite".visible = false
 	random.randomize()
 	MESH.set_albedo_texture(Pets[pet_picked],0)
 	ICON.visible = false
@@ -99,9 +103,10 @@ func sight_update():
 	else:
 		if !looked_away:
 			looked_away = true
+			movement()
 			print("Not Looking")
 		pass
-	movement()
+	#movement()
 		
 func movement():
 	#Furbeasel ===================================================================
@@ -131,8 +136,7 @@ func movement():
 					$"../SFX".play()
 					s = null
 				pass
-			
-		elif mood != "asleep" and !uppies and looked_away:
+		elif mood != "asleep" and !uppies:
 			var x = (($"../Player".position.x - position.x) * 2/3)
 			var z = (($"../Player".position.z - position.z) * 2/3)
 			if abs(x) < personal_space:
@@ -141,6 +145,7 @@ func movement():
 				z = personal_space * (z/abs(z))
 			position.x = x + position.x
 			position.z = z + position.z
+			move_switch = false
 			
 			if s != null:
 				$"../SFX".stream = s
@@ -151,9 +156,7 @@ func movement():
 		pass
 	#Alien ===========================================================================
 	elif pet_picked == 2:
-		if !looked_away:
-			move_switch = true
-		if !uppies and looked_away and move_switch:
+		if !uppies:
 			position.x = (($"../Player".position.x - position.x) * 2/3) + position.x
 			position.z = (($"../Player".position.z - position.z) * 2/3) + position.z
 			move_switch = false
@@ -325,10 +328,10 @@ func drop(input) -> void:
 #Functions for timers and pet states
 ###############################################
 func _on_action_timer_timeout():
-	print("timer")
 	#var new_mood = 4
 	var new_mood = random.randi_range(0, 5)
-	
+	print("timer")
+	print(new_mood)
 	#bones always fixes himself
 	if pet_picked == 1:
 		ICON.visible = false
@@ -341,7 +344,30 @@ func _on_action_timer_timeout():
 			sleep_cure = true
 		#gameover logic
 		else:
-			pass
+			if pet_picked == 0:
+				s = Sounds[2]
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
+				$"../AnimationPlayer".play("fur_attack")
+				await $"../AnimationPlayer".animation_finished
+				$"../CanvasLayer/Disturby".visible = false
+			
+			elif pet_picked == 2:
+				s = Sounds[3]
+				if s != null:
+					$"../SFX".stream = s
+					$"../SFX".play()
+					s = null
+				$"../AnimationPlayer".play("Ail_attack")
+				await $"../AnimationPlayer".animation_finished
+				$"../CanvasLayer/Aileen1Sprite".visible = false
+			$"../CanvasLayer/Endscreen".visible = true
+			
+			$"../AnimationPlayer".play("ded_screen")
+			await $"../AnimationPlayer".animation_finished
+			get_tree().change_scene_to_file("res://Scenes/title.tscn")
 			
 			
 	#Else here decides pet states

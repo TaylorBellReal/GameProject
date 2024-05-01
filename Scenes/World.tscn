@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://ci33aapjx1ea7"]
+[gd_scene load_steps=66 format=3 uid="uid://ci33aapjx1ea7"]
 
 [ext_resource type="PackedScene" uid="uid://ba7o6ijvf8if6" path="res://Scenes/WE_test.tscn" id="1_h3e0n"]
 [ext_resource type="PackedScene" uid="uid://bb6j07fe6ic6u" path="res://Scenes/Player.tscn" id="2_55glk"]
@@ -25,6 +25,9 @@
 [ext_resource type="Texture2D" uid="uid://c01xtxf14m6oj" path="res://Sprites/Backdrops/pawsscreen2.png" id="21_5xhnv"]
 [ext_resource type="Script" path="res://Scenes/hover.gd" id="22_8vgjx"]
 [ext_resource type="Texture2D" uid="uid://b3wr8fhuqeil8" path="res://Sprites/Backdrops/youLived.png" id="25_hllri"]
+[ext_resource type="Texture2D" uid="uid://cfxmaf1rnxmh8" path="res://Sprites/Backdrops/youDied.png" id="26_m0nc3"]
+[ext_resource type="AudioStream" uid="uid://d0weegtqrn3qb" path="res://Sounds/2024_PetGame.mp3" id="26_tasob"]
+[ext_resource type="Texture2D" uid="uid://nwj0tk07oa4" path="res://Sprites/PetRelated/Pet/aileen1_Sprite.png" id="27_usq8r"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_y4g71"]
 size = Vector3(3.135, 0.237, 2.748)
@@ -153,7 +156,7 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kek3f"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="Animation" id="Animation_bk16q"]
 resource_name = "Pause_Screen"
@@ -278,6 +281,173 @@ tracks/6/keys = {
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CanvasLayer/Disturby:position:x")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(850, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CanvasLayer/Disturby:position:y")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1258, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CanvasLayer/Disturby:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CanvasLayer/Disturby:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("CanvasLayer/Aileen1Sprite:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("CanvasLayer/Aileen1Sprite:position:x")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(553, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CanvasLayer/Aileen1Sprite:position:y")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-328, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("CanvasLayer/Aileen1Sprite:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color:r")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/16/type = "bezier"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color:g")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/17/type = "bezier"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color:b")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/18/type = "bezier"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color:a")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/19/type = "bezier"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("CanvasLayer/Endscreen/YouDied:position:x")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(557, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/20/type = "bezier"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("CanvasLayer/Endscreen/YouDied:position:y")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-170, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/21/type = "bezier"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("CanvasLayer/Endscreen/YouDied:rotation")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_37ygq"]
 resource_name = "unpause"
@@ -344,10 +514,192 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.5, 1, 1.5)
 }
 
+[sub_resource type="Animation" id="Animation_palyr"]
+resource_name = "fur_attack"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Disturby:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(850, -0.25, 0, 0.25, 0, 827, -0.25, 0, 0.25, 0, 825, -0.25, 0, 0.25, 0, 851, -0.25, 0, 0.25, 0, 825, -0.25, 0, 0.25, 0, 851, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.9, 1.2, 1.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Disturby:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1258, -0.25, 0, 0.25, 0, 631, -0.25, 0, 0.25, 0, 525, -0.25, 0, 0.25, 0, 620, -0.25, 0, 0.25, 0, 525, -0.25, 0, 0.25, 0, 620, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.9, 1.2, 1.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Disturby:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.235619, -0.25, 0, 0.25, 0, -0.294961, -0.25, 0, 0.25, 0, 0.235619, -0.25, 0, 0.25, 0, -0.294961, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.3, 0.7, 1, 1.3, 1.6)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Disturby:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_i5jq3"]
+resource_name = "Ail_attack"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Aileen1Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Aileen1Sprite:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(553, -0.25, 0, 0.25, 0, 490, -0.25, 0, 0.25, 0, 301, -0.25, 0, 0.25, 0, 621, -0.25, 0, 0.25, 0, 946, -0.25, 0, 0.25, 0, 586, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.9, 1.2, 1.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Aileen1Sprite:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(-328, -0.25, 0, 0.25, 0, 272, -0.25, 0, 0.25, 0, 360, -0.25, 0, 0.25, 0, 536, -0.25, 0, 0.25, 0, 332, -0.25, 0, 0.25, 0, 516, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.9, 1.2, 1.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Aileen1Sprite:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1.5708, -0.25, 0, 0.25, 0, 1.5708, -0.25, 0, 0.25, 0, -1.5708, -0.25, 0, 0.25, 0, 3.14159, -0.25, 0, 0.25, 0, -4.71239, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.9, 1.2, 1.5)
+}
+
+[sub_resource type="Animation" id="Animation_kdko4"]
+resource_name = "ded_screen"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Endscreen:theme_override_styles/panel:bg_color:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/Endscreen/YouDied:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(557, -0.25, 0, 0.25, 0, 854, -0.25, 0, 0.25, 0, 316, -0.25, 0, 0.25, 0, 588, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.8, 1.2)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/Endscreen/YouDied:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(-170, -0.25, 0, 0.25, 0, 407, -0.25, 0, 0.25, 0, 348, -0.25, 0, 0.25, 0, 478, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.8, 1.2)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayer/Endscreen/YouDied:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.884882, -0.25, 0, 0.25, 0, -0.884882, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4, 0.9, 1.4)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m6viu"]
 _data = {
+"Ail_attack": SubResource("Animation_i5jq3"),
 "Pause_Screen": SubResource("Animation_bk16q"),
 "RESET": SubResource("Animation_nnbe6"),
+"ded_screen": SubResource("Animation_kdko4"),
+"fur_attack": SubResource("Animation_palyr"),
 "unpause": SubResource("Animation_37ygq"),
 "win_screen": SubResource("Animation_k70u5")
 }
@@ -641,11 +993,30 @@ position = Vector2(345, 1003)
 scale = Vector2(0.242667, 0.242667)
 texture = ExtResource("25_hllri")
 
+[node name="YouDied" type="Sprite2D" parent="CanvasLayer/Endscreen"]
+position = Vector2(557, -170)
+scale = Vector2(0.271167, 0.271167)
+texture = ExtResource("26_m0nc3")
+
+[node name="Disturby" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(850, 1258)
+scale = Vector2(2.45999, 2.45999)
+texture = ExtResource("6_c7cmv")
+
+[node name="Aileen1Sprite" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(553, -328)
+scale = Vector2(2.314, 2.314)
+texture = ExtResource("27_usq8r")
+
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 pitch_scale = 2.33
 
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("26_tasob")
+
 [node name="ActionTimer" type="Timer" parent="."]
-wait_time = 25.0
+wait_time = 5.0
 autostart = true
 
 [node name="ShiftTimer" type="Timer" parent="."]
